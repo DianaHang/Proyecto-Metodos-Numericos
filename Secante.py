@@ -12,10 +12,16 @@ import matplotlib.pyplot as plt
 def f1(x):
     return (3*x) - pow(x+2, 2) * math.exp(-x)
 
+def f2(x):
+    return math.cos(x) + 2 * math.sin(x) + pow(x, 2)
+
+def f3(x):
+    return math.log(abs(x-1)) + math.cos(x-1)
+
 #Función para validar inputs numéricos
 def leerInput():
     while True:
-        for i in range(2):
+        for i in range(0,1):
             #Solicitar inputs muestra
             xStr = input(f"Escriba el valor inicial de la entrada x{i}: ")
             #Validar si se recibe una entrada numérica
@@ -60,27 +66,35 @@ def metodoSecante(f, x0, x1, n=20):
   return df
 
 #main
-print("***MÉTODO DE LA SECANTE***\n")
-x0 = leerInput()
-x1 = leerInput()
-
-# Ejecutar método
-df_resultados = metodoSecante(f1, x0, x1, n=10)
-
-# Mostrar DataFrame completo
-print("\nTabla de resultados:")
-print(df_resultados)
-
-# Mostrar valor final
-raiz = df_resultados["xn"].iloc[-1]
-print(f"\nLa solución aproximada es: x ≈ {raiz:.6f}")
-print(f"f(x) ≈ {f1(raiz):.6e}")
-
-# ---------------- GRÁFICA ----------------
-plt.figure(figsize=(8, 5))
-plt.plot(df_resultados["n"], df_resultados["xn"], marker='o', linestyle='-')
-plt.title("Convergencia del método de la Secante")
-plt.xlabel("Iteraciones (n)")
-plt.ylabel("Aproximación xn")
-plt.grid(True)
-plt.show()
+def main():
+    print("***MÉTODO DE LA SECANTE***\n")
+    x0 = leerInput()
+    x1 = leerInput()
+    
+    # Ejecutar método
+    raiz = metodoSecante(f1, x0, x1, n=10)
+    
+    # Mostrar DataFrame completo
+    df_resultados = raiz
+    print("\nTabla de resultados:")
+    print(df_resultados)
+    pd.set_option('display.float_format', '{:.4f}'.format)
+    print("\nResultados del método de la Secante:\n")
+    print(df_resultados.to_string(index=False))
+    
+    # Mostrar valor final
+    raiz = df_resultados["xn"].iloc[-1]
+    print(f"\nLa solución aproximada es: x ≈ {raiz:.6f}")
+    print(f"\nf(x) ≈ {f1(raiz):.6f}")
+    
+    # Gráfica para mostrar la convergencia del método
+    plt.figure(figsize=(8, 5))
+    plt.plot(df_resultados["n"], df_resultados["xn"], marker='*', linestyle='-', color='green')
+    plt.title("Convergencia del método de la Secante", fontsize=14)
+    plt.xlabel("Número de iteraciones", fontsize=12)
+    plt.ylabel("Aproximación xn", fontsize=12)
+    plt.grid(True)
+    plt.show()
+    
+if __name__ == "__main__":
+    main()
