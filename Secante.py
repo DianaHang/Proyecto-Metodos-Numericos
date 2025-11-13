@@ -68,8 +68,7 @@ def metodoSecante(f, x0, x1, n=20):
 #main
 def main():
     print("***MÉTODO DE LA SECANTE***\n")
-    x0 = leerInput()
-    x1 = leerInput()
+    x0, x1 = leerInput()
     
     # Ejecutar método
     raiz = metodoSecante(f1, x0, x1, n=10)
