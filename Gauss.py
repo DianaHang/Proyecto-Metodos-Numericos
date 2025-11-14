@@ -48,7 +48,7 @@ def mostrarResultado(x, A, bCol):
         print(f"x{i+1} = {xi:.6f}")
 
 def main():
-    print("MÉTODO DE GAUSS\n")
+    print("*****MÉTODO DE GAUSS*****\n")
     
     #Mandar a llamar el archivo que valida los inputs
     A, b = ingresarDatos()
