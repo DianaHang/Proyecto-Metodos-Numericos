@@ -5,10 +5,11 @@ import os #módulo en Python que contiene funciones para manipular nombres de ar
 import pygame #modulo que permite reproducir archivos de sonido en formato .mp3
 
 
+
 # ===============================
 # FUNCIONES NUMÉRICAS
 # ===============================
-#Ejemplo de codigo de bisección 
+"""Ejemplo de codigo de bisección 
 def biseccion(fx, a, b, tol, max_iter):
     def f(x):
         return eval(fx, {"x": x, "math": math})
@@ -27,21 +28,21 @@ def biseccion(fx, a, b, tol, max_iter):
         else:
             a = c
         iteracion += 1
-    return f"⚠️ No se encontró raíz en {max_iter} iteraciones.\nÚltimo valor: x = {c:.6f}"
+    return f"⚠️ No se encontró raíz en {max_iter} iteraciones.\nÚltimo valor: x = {c:.6f}"""
 
 
 # ===============================
-# SUBVENTANA DE BISECCIÓN
+# SUBVENTANA DE FALSA POSICIÓN
 # ===============================
 
-def ventana_biseccion():
+def ventana_falsa_posicion():
     sub = Toplevel() # Toplevel() Crea una nueva ventana sobre la principal 
-    sub.title("Método de Bisección")
+    sub.title("Método de Falsa Posición")
     sub.geometry("400x400")
     sub.minsize(400, 400)
 
     #Se crea el subtitulo de la ventana tk.Label()
-    tk.Label(sub, text="Método de Bisección hola", font=("Arial", 16, "bold")).pack(pady=10) 
+    tk.Label(sub, text="Método de Falsa Posición", font=("Arial", 16, "bold")).pack(pady=10) 
 
     ecuaciones = {
         "1. x³ - x - 2": "x**3 - x - 2",
@@ -74,19 +75,19 @@ def ventana_biseccion():
     resultado = tk.Label(sub, text="", font=("Arial", 11), wraplength=350)
     resultado.pack(pady=10)
 
-    def ejecutar_biseccion(): #Funcion que recibe los parametro del metodo bisección 
+    def ejecutar_falsa_posicion(): #Funcion que recibe los parametro del metodo bisección 
         try:
             fx = ecuaciones[opcion_var.get()]
             a = float(entrada_a.get())
             b = float(entrada_b.get())
             tol = float(entrada_tol.get())
             max_iter = int(entrada_iter.get())
-            salida = biseccion(fx, a, b, tol, max_iter)
+            salida = biseccion(fx, a, b, tol, max_iter) #Aqui debe llamar la funcion del metodo 
             resultado.config(text=salida)
         except Exception as e:
             messagebox.showerror("Error", f"Revisa los datos ingresados.\n{e}")
 
-    tk.Button(sub, text="Calcular", command=ejecutar_biseccion, width=15).pack(pady=10) #botón calcular
+    tk.Button(sub, text="Calcular", command=ejecutar_falsa_posicion, width=15).pack(pady=10) #botón calcular
     tk.Button(sub, text="Cerrar", command=sub.destroy).pack(pady=5)# botón cerrar
 
 
@@ -96,13 +97,13 @@ def ventana_biseccion():
 
 def submenu_ecuaciones_no_lineales():
     sub = Toplevel() # Toplevel() Crea una nueva ventana sobre la principal 
-    sub.title("Ecuaciones no lineales amor y paz") # Titulo de la ventana 
+    sub.title("Ecuaciones no lineales") # Titulo de la ventana 
     sub.geometry("300x200")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    tk.Button(sub, text="Bisección", width=20, command=ventana_biseccion).pack(pady=5)
-    tk.Button(sub, text="Newton-Raphson (próximamente)", width=20).pack(pady=5)
-    tk.Button(sub, text="Secante (próximamente)", width=20).pack(pady=5)
+    tk.Button(sub, text="Método de Falsa Posición", width=20, command=ventana_falsa_posicion).pack(pady=5)
+    tk.Button(sub, text="Método de Newton", width=20).pack(pady=5)
+    tk.Button(sub, text="Método de la Secante", width=20).pack(pady=5)
 
 
 def submenu_sistemas_lineales():
@@ -111,9 +112,9 @@ def submenu_sistemas_lineales():
     sub.geometry("300x200")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    tk.Button(sub, text="Gauss Simple (próximamente)", width=20).pack(pady=5)
-    tk.Button(sub, text="Gauss-Seidel (próximamente)", width=20).pack(pady=5)
-    tk.Button(sub, text="Jacobi (próximamente)", width=20).pack(pady=5)
+    tk.Button(sub, text="Método de Gauss", width=20).pack(pady=5)
+    tk.Button(sub, text="Método de Gauss-Seidel", width=20).pack(pady=5)
+    tk.Button(sub, text="Método de Jacobi", width=20).pack(pady=5)
 
 
 def submenu_factorizacion_lu():
@@ -122,7 +123,8 @@ def submenu_factorizacion_lu():
     sub.geometry("300x150")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    tk.Button(sub, text="Doolittle (próximamente)", width=20).pack(pady=5)
+    tk.Button(sub, text="Método de Doolittle", width=20).pack(pady=5)
+    tk.Button(sub, text="Método de Cholesky", width=20).pack(pady=5)
 
 
 def submenu_valores_vectores():
@@ -154,8 +156,11 @@ def mostrar_menu(root):
 
     for texto, comando in botones:
         tk.Button(root, text=texto, command=comando, width=25, height=2).pack(pady=5)
+    
+    #Boton para salir
+    tk.Button(root, text="Salir", command=lambda: pantalla_final(root),
+          width=25, height=2).pack(pady=15)
 
-    tk.Button(root, text="Salir", command=root.quit, width=25, height=2).pack(pady=15)
 
 #Funcion para mostrar la inforimación de la introducción 
 def mostrar_introduccion(root):
@@ -177,13 +182,39 @@ def mostrar_introduccion(root):
 
     tk.Button(root, text="Continuar", command=lambda: mostrar_menu(root), width=20, height=2).pack(pady=15)
 
+#Funcion para mostrar las introducciones
+def mostrar_ventana_intro(root, titulo, texto, accion_continuar):
+    for widget in root.winfo_children():
+        widget.destroy()
 
+    tk.Label(root, text=titulo, font=("Arial", 18, "bold")).pack(pady=15)
+    tk.Message(root, text=texto, width=600, font=("Arial", 12)).pack(
+        expand=True, fill="both", padx=20, pady=10
+    )
+
+    tk.Button(root, text="Continuar", width=20, height=2,
+              command=accion_continuar).pack(pady=20)
+
+#Funcion para mostrar la portada principal
 def mostrar_portada(root):
     for widget in root.winfo_children():
         widget.destroy()
 
     tk.Label(root, text="MÉTODOS NUMÉRICOS", font=("Arial", 20, "bold")).pack(expand=True)
     tk.Button(root, text="Continuar", command=lambda: mostrar_introduccion(root), width=20, height=2).pack(pady=30)
+
+#Funcion para mostrar la pantalla final (agradecimientos) al presionar opcion salir
+def pantalla_final(root):
+    mostrar_ventana_intro(
+        root,
+        "¡Gracias por usar el sistema!",
+        "Este software fue desarrollado por estudaintes de MAC\n"
+        "Derechos reservados UNAM.\n\n"
+        "\n\n"
+        "Cierra la ventana para salir o presiona continuar .",
+        lambda: root.quit()
+    )
+
 
 
 # ===============================
