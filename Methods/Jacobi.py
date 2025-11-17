@@ -35,7 +35,7 @@ def jacobi(A, b, numIter):
         # Registrar iteración para DataFrame
         nuevaFila = {"n": i}
         for indx, valor in enumerate(xn):
-            nuevaFila[f"x{indx+1}_n"] = valor
+            nuevaFila[f"x{indx+1}"] = valor
         listaIteraciones.append(nuevaFila)
         
         x = xn.copy()

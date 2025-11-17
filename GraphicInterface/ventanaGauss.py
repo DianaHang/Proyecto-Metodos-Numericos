@@ -75,7 +75,7 @@ def ventanaGauss():
                 fila.append(e)
             entradas_A.append(fila)
 
-        tk.Label(sub, text=f"Ingrese el vector b ({n}):",
+        tk.Label(sub, text=f"Ingrese el vector b ({n} x 1):",
                  font=("Arial", 12)).pack(pady=5)
         frame_vector.pack()
 

@@ -14,51 +14,150 @@ import tkinter as tk
 from tkinter import messagebox
 import numpy as np
 from Methods.GaussSeidel import gaussSeidel
-from Methods.inputsMatriz import mainInputs, diagonalDominante
+from Methods.inputsMatriz import diagonalDominante
 
 
 def ventanaGaussSeidel():
     sub = tk.Toplevel()
     sub.title("Método de Gauss-Seidel")
-    sub.geometry("420x450")
+    sub.geometry("600x600")
 
-    tk.Label(sub, text="Método de Gauss - Seidel",
+    tk.Label(sub, text="Método de Gauss-Seidel",
              font=("Arial", 16, "bold")).pack(pady=10)
 
+    tk.Label(sub, text="Ingrese el tamaño de la matriz (nxn):",
+             font=("Arial", 12)).pack()
+
+    entrada_n = tk.Entry(sub, width=5, font=("Arial", 12))
+    entrada_n.pack()
+
+    frame_matriz = tk.Frame(sub)
+    frame_vector = tk.Frame(sub)
+
+    entradas_A = []
+    entradas_b = []
+
+    # ===========================
+    # Crear matriz dinámica
+    # ===========================
+    def crear_matriz():
+        nonlocal entradas_A, entradas_b
+
+        # Limpiar posibles widgets anteriores
+        for w in frame_matriz.winfo_children():
+            w.destroy()
+        for w in frame_vector.winfo_children():
+            w.destroy()
+
+        entradas_A = []
+        entradas_b = []
+
+        try:
+            n = int(entrada_n.get())
+            if n < 2:
+                raise ValueError("n debe ser mayor o igual a 2")
+        except:
+            messagebox.showerror("Error", "Ingresa un valor entero válido para n.")
+            return
+
+        tk.Label(sub, text=f"Ingrese los valores de la matriz A ({n} × {n}):",
+                 font=("Arial", 12)).pack(pady=5)
+        frame_matriz.pack(pady=5)
+
+        # Crear campos A
+        for i in range(n):
+            fila = []
+            for j in range(n):
+                e = tk.Entry(frame_matriz, width=6, font=("Arial", 11))
+                e.grid(row=i, column=j, padx=3, pady=3)
+                fila.append(e)
+            entradas_A.append(fila)
+
+        tk.Label(sub, text=f"Ingrese el vector b ({n} x 1):",
+                 font=("Arial", 12)).pack(pady=5)
+        frame_vector.pack()
+
+        # Crear campos b
+        for i in range(n):
+            e = tk.Entry(frame_vector, width=6, font=("Arial", 11))
+            e.grid(row=i, column=0, pady=3)
+            entradas_b.append(e)
+
+        btn_resolver.pack(pady=15)
+
+    # Botón para generar matriz
+    tk.Button(sub, text="Crear matriz", font=("Arial", 12),
+              command=crear_matriz).pack(pady=10)   
+
     # Entrada número de iteraciones
-    tk.Label(sub, text="Número de iteraciones:").pack()
-    entrada_iter = tk.Entry(sub, width=10)
-    entrada_iter.insert(0, "10")
+    tk.Label(sub, text="Número de iteraciones:", font=("Arial", 12)).pack()
+    entrada_iter = tk.Entry(sub, width=10, font=("Arial", 12))
+    entrada_iter.insert(0, "")
     entrada_iter.pack()
 
-    resultado = tk.Label(sub, text="", wraplength=380, justify="left")
-    resultado.pack(pady=10)
+    # ===========================
+    # Resolver Jacobi
+    # ===========================
 
-    def ejecutar():
+    def resolver_gauss_seidel():
         try:
-            numIter = int(entrada_iter.get()) + 1
+            n = int(entrada_n.get())
+            numIterStr = entrada_iter.get()
 
-            # Obtener A y b
-            A, b = mainInputs()
+            try:
+                numIter = int(numIterStr) + 1
+            except ValueError:
+                messagebox.showerror("Error", "Ingresa un número válido de iteraciones.")
+                return
 
-            # Intentar reordenar
+            # Leer matriz A
+            A = np.zeros((n, n), float)
+            for i in range(n):
+                for j in range(n):
+                    A[i][j] = float(entradas_A[i][j].get())
+
+            # Leer vector b
+            b = np.zeros(n, float)
+            for i in range(n):
+                b[i] = float(entradas_b[i].get())
+
+            # Reacomodar (si se puede)
             ADom, bDom = diagonalDominante(A, b)
             if ADom is None:
                 ADom = A
                 bDom = b
+                messagebox.showwarning("Advertencia",
+                                       "La matriz no es diagonal dominante y no pudo reacomodarse.\n"
+                                       "El método podría no converger.")
 
-            # Ejecutar Gauss-Seidel
-            solucion, dfGS = gaussSeidel(ADom, bDom, numIter)
+            #Mostrar advertencia si no es diagonal dominante
+            else:
+                messagebox.showinfo("Información",
+                                    "La matriz ha sido reacomodada para ser diagonal dominante.")
 
-            salida = "Resultados por iteración:\n\n"
-            salida += dfGS.to_string(index=False)
-            salida += "\n\nSolución aproximada:\n" + str(solucion)
+            # Ejecutar método de Jacobi
+            solucion, dfGaussSeidel = gaussSeidel(ADom, bDom, numIter)
 
-            resultado.config(text=salida)
+            #Mostrar resultados
+            texto = "RESULTADOS DEL MÉTODO DE GAUSS-SEIDEL\n\n"
+
+            texto += "Matriz diagonal dominante utilizada:\n"
+            texto += str(ADom) + "\n\n"
+
+            texto += f"Convergencia del método para {numIter-1} iteraciones:\n"
+            texto += dfGaussSeidel.to_string(index=False) + "\n\n"
+
+            texto += "Solución aproximada:\n"
+            for i, val in enumerate(solucion):
+                texto += f"x{i+1} = {val:.6f}\n"
+
+            # Mostrar resultados
+            messagebox.showinfo("Resultados", texto)
 
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")
 
-    tk.Button(sub, text="Calcular", command=ejecutar).pack(pady=5)
-    tk.Button(sub, text="Cerrar", command=sub.destroy).pack(pady=5)
-    sub.mainloop() # Mantener la ventana abierta
+    btn_resolver = tk.Button(sub, text="Mostrar resultados",
+                             font=("Arial", 12),
+                             command=resolver_gauss_seidel)
+    btn_resolver.pack_forget()  # Oculto hasta crear la matriz

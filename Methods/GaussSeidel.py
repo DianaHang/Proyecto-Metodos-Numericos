@@ -38,7 +38,7 @@ def gaussSeidel(A, b, numIter):
         # Registrar iteración para DataFrame
         nuevaFila = {"n": i}
         for indx, valor in enumerate(x):
-            nuevaFila[f"x{indx+1}_n"] = valor
+            nuevaFila[f"x{indx+1}"] = valor
         listaIteraciones.append(nuevaFila)
         
     df = pd.DataFrame(listaIteraciones)
