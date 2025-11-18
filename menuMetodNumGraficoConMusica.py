@@ -3,33 +3,7 @@ from tkinter import Toplevel, messagebox
 import math
 import os #módulo en Python que contiene funciones para manipular nombres de archivo y rutas de directorios de forma independiente de la plataforma
 import pygame #modulo que permite reproducir archivos de sonido en formato .mp3
-
-
-
-# ===============================
-# FUNCIONES NUMÉRICAS
-# ===============================
-"""Ejemplo de codigo de bisección 
-def biseccion(fx, a, b, tol, max_iter):
-    def f(x):
-        return eval(fx, {"x": x, "math": math})
-
-    if f(a) * f(b) >= 0:
-        return "No cumple con f(a)*f(b)<0. No hay garantía de raíz en este intervalo."
-
-    iteracion = 0
-    while iteracion < max_iter:
-        c = (a + b) / 2
-        if f(c) == 0 or abs(b - a) < tol:
-            return f"✅ Raíz aproximada: x = {c:.6f}\nIteraciones: {iteracion}"
-
-        if f(a) * f(c) < 0:
-            b = c
-        else:
-            a = c
-        iteracion += 1
-    return f"⚠️ No se encontró raíz en {max_iter} iteraciones.\nÚltimo valor: x = {c:.6f}"""
-
+import numpy as np
 
 # ===============================
 # SUBVENTANA DE FALSA POSICIÓN
@@ -75,7 +49,7 @@ def ventana_falsa_posicion():
     resultado = tk.Label(sub, text="", font=("Arial", 11), wraplength=350)
     resultado.pack(pady=10)
 
-    def ejecutar_falsa_posicion(): #Funcion que recibe los parametro del metodo bisección 
+    def ejecutar_falsa_posicion(): #Funcion que recibe los parametro del metodo de falsa posición  
         try:
             fx = ecuaciones[opcion_var.get()]
             a = float(entrada_a.get())
@@ -137,6 +111,7 @@ def submenu_valores_vectores():
     tk.Button(sub, text="Método de la Potencia Invertida", width=20).pack(pady=5)
 
 
+
 # ===============================
 # INTERFAZ PRINCIPAL
 # ===============================
@@ -157,7 +132,7 @@ def mostrar_menu(root):
     for texto, comando in botones:
         tk.Button(root, text=texto, command=comando, width=25, height=2).pack(pady=5)
     
-    #Boton para salir
+    #Boton para salir (Llama a la pantalla final)
     tk.Button(root, text="Salir", command=lambda: pantalla_final(root),
           width=25, height=2).pack(pady=15)
 
