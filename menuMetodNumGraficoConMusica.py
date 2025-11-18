@@ -5,6 +5,11 @@ import os #módulo en Python que contiene funciones para manipular nombres de ar
 import pygame #modulo que permite reproducir archivos de sonido en formato .mp3
 import numpy as np
 
+#importamos la interfaz de las ventanas 
+from ventanaPotencia import ventanaPotencia
+from ventanaPotenciaInvertida import ventanaPotenciaInvertida
+
+
 # ===============================
 # SUBVENTANA DE FALSA POSICIÓN
 # ===============================
@@ -107,8 +112,13 @@ def submenu_valores_vectores():
     sub.geometry("300x150")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    tk.Button(sub, text="Método de la Potencia", width=20).pack(pady=5)
-    tk.Button(sub, text="Método de la Potencia Invertida", width=20).pack(pady=5)
+
+#Configuración de los botones para llamar las ventanas de potencia y potencia inveritda
+    tk.Button(sub, text="Método de la Potencia", width=20,
+          command=ventanaPotencia).pack(pady=5)
+    tk.Button(sub, text="Método de la Potencia Invertida", width=20,
+          command=ventanaPotenciaInvertida).pack(pady=5)
+
 
 
 
