@@ -52,6 +52,8 @@ Para ejecutar este proyecto, asegúrese de contar con:
     -   `Tkinter` → utilizado para la interfaz gráfica
 
     -   `pygame` → utilizado para la reproducción de audio
+
+
         Instalación desde la terminal (cmd, bash, PowerShell, etc):
 
         ``` bash
