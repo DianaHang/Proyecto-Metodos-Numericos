@@ -48,7 +48,10 @@ Para ejecutar este proyecto, asegúrese de contar con:
     -   **Anaconda Navigator**
 -   `pip` configurado correctamente.
 -   Módulos necesarios:
-    -   `pygame` → utilizado para la interfaz gráfica\
+
+    -   `Tkinter` → utilizado para la interfaz gráfica
+
+    -   `pygame` → utilizado para la reproducción de audio
         Instalación desde la terminal (cmd, bash, PowerShell, etc):
 
         ``` bash
