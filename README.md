@@ -24,7 +24,8 @@ El sistema ofrece una interfaz gráfica, donde el usuario puede explorar y conoc
 cada método, introducir valores, observar los cálculos realizados y
 obtener las soluciones generadas paso a paso.
 
-> \[¡NOTA!\] Este proyecto está orientado a estudiantes o personas que
+> [!NOTA]
+> Este proyecto está orientado a estudiantes o personas que
 > desean comprender mejor el funcionamiento práctico de los métodos
 > numéricos.\
 > No busca lograr un rendimiento de producción, sino ofrecer un enfoque
@@ -131,7 +132,8 @@ Si desea sugerir mejoras, añadir nuevos métodos, optimizar la interfaz
 o integrar animaciones para mostrar los pasos iterativos, estaremos
 encantados de ayudarle.
 
-> \[TIP!\] Puedes ampliar el proyecto incorporando nuevos algoritmos,
+> [!TIP] 
+> Puedes ampliar el proyecto incorporando nuevos algoritmos,
 > añadiendo menús, mejorando la interfaz u optimizando el código utilizado.
 
 - Se ha trabajado este proyecto de manera colaborativa utilizando herramientas como git y GitHub para un mejor desarrollo.
