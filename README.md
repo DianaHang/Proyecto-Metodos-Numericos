@@ -24,7 +24,7 @@ El sistema ofrece una interfaz gráfica, donde el usuario puede explorar y conoc
 cada método, introducir valores, observar los cálculos realizados y
 obtener las soluciones generadas paso a paso.
 
-> [!NOTA]
+> [!NOTE]
 > Este proyecto está orientado a estudiantes o personas que
 > desean comprender mejor el funcionamiento práctico de los métodos
 > numéricos.\
