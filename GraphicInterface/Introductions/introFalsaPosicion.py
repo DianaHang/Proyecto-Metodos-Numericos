@@ -22,7 +22,7 @@ def introFalsaPosicion(root):
     intro.geometry("500x450")
 
     texto = (
-    "Método de Falsa Posición (Regla Falsa)\n\n"
+    "Método de Falsa Posición (Regula Falsi)\n\n"
     "Este método pertenece a la familia de métodos de búsqueda de raíces "
     "que utilizan intervalos donde la función cambia de signo.\n\n"
     "A diferencia del método de bisección, la Falsa Posición traza una "
