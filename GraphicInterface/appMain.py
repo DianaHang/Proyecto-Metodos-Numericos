@@ -34,6 +34,8 @@ def submenu_ecuaciones_no_lineales():
     tk.Button(sub, text="Falsa Posición", width=20, command= ventanaFalsaPosicion).pack(pady=5)
     tk.Button(sub, text="Newton", width=20, command=ventanaNewton).pack(pady=5)
     tk.Button(sub, text="Secante", width=20, command = ventanaSecante).pack(pady=5)
+    # Botón cerrar
+    tk.Button(sub, text="Cerrar", font=("Arial", 10),command=sub.destroy).pack(pady=5)
 
 
 def submenu_sistemas_lineales():
@@ -45,6 +47,8 @@ def submenu_sistemas_lineales():
     tk.Button(sub, text="Gauss", width=20, command = ventanaGauss).pack(pady=5)
     tk.Button(sub, text="Jacobi", width=20, command = ventanaJacobi).pack(pady=5)
     tk.Button(sub, text="Gauss-Seidel", width=20, command = ventanaGaussSeidel).pack(pady=5)
+     # Botón cerrar
+    tk.Button(sub, text="Cerrar", font=("Arial", 10),command=sub.destroy).pack(pady=5)
 
 def submenu_factorizacion_lu():
     sub = tk.Toplevel()
@@ -54,6 +58,8 @@ def submenu_factorizacion_lu():
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
     tk.Button(sub, text="Doolittle", width=20, command= ventanaDoolittle).pack(pady=5)
     tk.Button(sub, text="Cholesky", width=20, command= ventanaCholesky).pack(pady=5)
+     # Botón cerrar
+    tk.Button(sub, text="Cerrar", font=("Arial", 10),command=sub.destroy).pack(pady=5)
 
 def submenu_valores_vectores():
     sub = tk.Toplevel()
@@ -63,6 +69,8 @@ def submenu_valores_vectores():
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
     tk.Button(sub, text="Potencia", width=20, command= ventanaPotencia).pack(pady=5)
     tk.Button(sub, text="Potencia Inversa", width=20, command= ventanaPotenciaInversa).pack(pady=5)
+     # Botón cerrar
+    tk.Button(sub, text="Cerrar", font=("Arial", 10),command=sub.destroy).pack(pady=5)
 
 #          MENÚ PRINCIPAL
 def mostrar_menu(root):
