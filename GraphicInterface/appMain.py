@@ -154,8 +154,8 @@ def mostrar_ventana_intro(root, titulo, texto, accion_continuar):
 #-------------------------------------------------
 def intro_ecuaciones_no_lineales(root):
     texto = (
-        "En este módulo podrás resolver ecuaciones no lineales\n"
-        "usando métodos numéricos clásicos como:\n\n"
+        "En este módulo podrás resolver algunas ecuaciones no lineales\n"
+        "sugeridas utilizando métodos numéricos clásicos como:\n\n"
         "- Falsa Posición\n"
         "- Newton\n"
         "- Secante\n\n"
@@ -168,7 +168,7 @@ def intro_ecuaciones_no_lineales(root):
 def intro_ecuaciones_lineales(root):
     texto = (
         "En este módulo podrás resolver sistemas de ecuaciones lineales\n"
-        "usando métodos numéricos clásicos como:\n\n"
+        "cuadrados utilizando métodos numéricos clásicos como:\n\n"
         "- Gauss\n"
         "- Jacobi\n"
         "- Gauss-Seidel\n\n"
@@ -181,7 +181,10 @@ def intro_ecuaciones_lineales(root):
 def intro_factorizacion_lu(root):
     texto = (
         "En este módulo podrás resolver sistemas de ecuaciones lineales\n"
-        "usando métodos numéricos clásicos como:\n\n"
+        "cuadrados a través de la Factorización LU, la cual requiere del\n"
+        "cálculo de las matrices: L (triangular inferior) y U (triangular\n"
+        "superior) para poder hallar la solución.\n"
+        "Se vale de métodos numéricos clásicos como:\n\n"
         "- Doolittle\n"
         "- Cholesky\n\n"
         "Haz clic en continuar para abrir el submenú.\n"
@@ -193,7 +196,9 @@ def intro_factorizacion_lu(root):
 def intro_valores_vectores(root):
     texto = (
         "En este módulo podrás resolver sistemas de ecuaciones lineales\n"
-        "usando métodos numéricos clásicos como:\n\n"
+        "cuadrados mediante el uso de los valores y vectores propios, \n"
+        "que se asocian a la matriz del sistema.\n"
+        "Se trabaja con métodos numéricos clásicos como:\n\n"
         "- Potencia\n"
         "- Potencia Inversa\n\n"
         "Haz clic en continuar para abrir el submenú.\n"
@@ -211,7 +216,7 @@ def pantalla_final(root):
         "Este software fue desarrollado por estudiantes de MAC.\n"
         "\tDerechos reservados UNAM.©\n\n"
         "\n\n"
-        "Presiona 'Continuar' para salir\n",
+        "\tPresiona 'Continuar' para salir.\n",
         lambda: root.quit()
     )
 

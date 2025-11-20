@@ -22,9 +22,9 @@ def introNewton(root):
     intro.geometry("500x450")
 
     texto = (
-        "Método de Newton-Raphson\n\n"
+        "Método de Newton\n\n"
         "Este método numérico sirve para encontrar raíces de ecuaciones "
-        "no lineales utilizando aproximaciones sucesivas.\n\n"
+        "no lineales utilizando aproximaciones sucesivas mediante derivadas.\n\n"
         "La fórmula principal es:\n\n"
         "        x(n+1) = x(n) - f(x) / f'(x)\n\n"
         "Es un método rápido siempre que la aproximación inicial esté cerca "
