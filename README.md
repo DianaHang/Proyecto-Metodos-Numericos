@@ -185,6 +185,7 @@ encantados de ayudarle.
 ## Créditos
 
 ![Footer](Assets/footer.png)
+
 ![Logo](Assets/logo-PySolve-Interactive.png)
 
 Hecho en México por estudiantes de la UNAM, todos los derechos reservados 2025. ©
