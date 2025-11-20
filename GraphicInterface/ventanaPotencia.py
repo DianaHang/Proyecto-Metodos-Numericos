@@ -83,7 +83,7 @@ def ventanaPotencia():
         btn_resolver.pack(pady=15)
 
     #Botón para generar la matriz y el vector
-    tk.Button(sub, text="Crear matriz", command=crear_campos).pack(pady=10)
+    tk.Button(sub, text="Crear matriz",  font=("Arial", 12), command=crear_campos).pack(pady=10)
 
     # Entrada número de iteraciones
     tk.Label(sub, text="Número de iteraciones:", font=("Arial", 12)).pack()
@@ -137,9 +137,6 @@ def ventanaPotencia():
             texto += "Vector propio asociado:\n"
             for i, val in enumerate(x):
                 texto += f"x{i+1} = {val:.4f}\n"
-
-            texto += "\nComprobación: \nA·x ≈ λ·x:\n"
-            texto += str(A @ x) #Multiplicación matricial A·x
 
             messagebox.showinfo("Resultados", texto)
 
