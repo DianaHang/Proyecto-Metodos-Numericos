@@ -1,6 +1,6 @@
 import sys
 import os
-
+# Ajustar la ruta para importar módulos desde el directorio del proyecto
 ruta_actual = os.path.dirname(os.path.abspath(__file__))          # /GraphicInterface
 ruta_proyecto = os.path.dirname(ruta_actual)                      # /ProyectoFinal
 
@@ -9,55 +9,121 @@ if ruta_proyecto not in sys.path:
 
 """##################################################
 """
-
+#Librerías
 import tkinter as tk
 from tkinter import messagebox
-import math
-from Methods.FalsaPosicion import metodoFalsaPosicion
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from Methods.FalsaPosicion import metodoFalsaPosicion, f1, f2, f3
 
+def mostrar_grafica_tkinter(frame, df, titulo, columna_y):
+    # Elimina cualquier gráfica previa
+    for widget in frame.winfo_children():
+        widget.destroy()
+
+    fig = plt.Figure(figsize=(6, 4), dpi=100)
+    ax = fig.add_subplot(111)
+
+    ax.plot(df["n"], df[columna_y],
+            marker='o', linestyle='-', linewidth=2)
+
+    ax.set_title(titulo, fontsize=14)
+    ax.set_xlabel("Iteraciones")
+    ax.set_ylabel(columna_y)
+    ax.grid(True, linestyle='--', alpha=0.6)
+
+    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas.draw()
+    canvas.get_tk_widget().pack()
 
 def ventanaFalsaPosicion():
     sub = tk.Toplevel()
     sub.title("Método de Falsa Posición")
-    sub.geometry("400x400")
+    sub.geometry("600x600")
 
     tk.Label(sub, text="Método de Falsa Posición",
              font=("Arial", 16, "bold")).pack(pady=10)
 
-    ecuaciones = {
-        "1. x³ - x - 2": "x**3 - x - 2",
-        "2. eˣ - 3x": "math.exp(x) - 3*x",
-        "3. sin(x) - 0.5": "math.sin(x) - 0.5"
+    # Selección de función
+    tk.Label(sub, text="Seleccione una ecuación:").pack()
+
+    opciones = {
+        "1. 3x - (x+2)² e⁻ˣ = 0": f1,
+        "2. cos(x) + 2 sin(x) + x² = 0": f2,
+        "3. sin(x) - 0.5 = 0": f3
     }
 
-    opcion_var = tk.StringVar(sub, value=list(ecuaciones)[0])
+    opcion_var = tk.StringVar(sub, value=list(opciones)[0])
+    tk.OptionMenu(sub, opcion_var, *opciones.keys()).pack(pady=5)
 
-    tk.Label(sub, text="Selecciona una ecuación:").pack()
-    tk.OptionMenu(sub, opcion_var, *ecuaciones).pack()
+    # Entradas a y b
+    tk.Label(sub, text="Límite inferior (a):",
+             font=("Arial", 12)).pack(pady=5)
+    entrada_a = tk.Entry(sub, width=10, font=("Arial", 12))
+    entrada_a.pack()
 
-    entradas = {}
-    for label in ["a", "b", "tol", "iter"]:
-        tk.Label(sub, text=label).pack()
-        e = tk.Entry(sub, width=10)
-        e.pack()
-        entradas[label] = e
+    tk.Label(sub, text="Límite superior (b):",
+             font=("Arial", 12)).pack(pady=5)
+    entrada_b = tk.Entry(sub, width=10, font=("Arial", 12))
+    entrada_b.pack()
 
-    resultado = tk.Label(sub, text="", wraplength=350)
-    resultado.pack(pady=10)
+    # Entrada de iteraciones
+    tk.Label(sub, text="Número de iteraciones:",
+             font=("Arial", 12)).pack(pady=5)
 
-    def ejecutar():
+    entrada_iter = tk.Entry(sub, width=10, font=("Arial", 12))
+    entrada_iter.insert(0, "")
+    entrada_iter.pack()
+
+    frame_grafica = tk.Frame(sub)
+    frame_grafica.pack(pady=10)
+
+    #Mostrar resultados
+    def resolver_falsa_posicion():
         try:
-            fx = ecuaciones[opcion_var.get()]
-            salida = metodoFalsaPosicion(
-                fx,
-                float(entradas["a"].get()),
-                float(entradas["b"].get()),
-                float(entradas["tol"].get()),
-                int(entradas["iter"].get())
-            )
-            resultado.config(text=salida)
-        except Exception as e:
-            messagebox.showerror("Error", str(e))
+            f = opciones[opcion_var.get()]
+            a = float(entrada_a.get())
+            b = float(entrada_b.get())
+            n = int(entrada_iter.get())
 
-    tk.Button(sub, text="Calcular", command=ejecutar).pack(pady=5)
-    tk.Button(sub, text="Cerrar", command=sub.destroy).pack(pady=5)
+            dfFP, raiz = metodoFalsaPosicion(f, a, b, n)
+
+            #Texto de resultados
+            texto = "RESULTADOS DEL MÉTODO DE FALSA POSICIÓN\n\n"
+
+            texto += f"Función seleccionada:\n{opcion_var.get()}\n\n"
+            texto += f"Intervalo inicial: [{a}, {b}]\n"
+            texto += f"Número de iteraciones: {n}\n\n"
+
+            texto += "Convergencia del Método de Falsa Posición:\n"
+            dfFP = dfFP.round(4)
+            texto += dfFP.to_string(index=False) + "\n\n"
+
+            texto += f"Solución aproximada:\n x ≈ {raiz:.6f}\n"
+            texto += f"f(x) ≈ {f(raiz):.6f}\n"
+
+            messagebox.showinfo("Resultados", texto)
+
+             # ---- Mostrar gráfica ----
+            mostrar_grafica_tkinter(
+                frame_grafica,
+                dfFP,
+                "Convergencia del Método de Falsa Posición",
+                "c"
+            )
+
+        except Exception as e:
+            messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")
+
+    # Botón resolver
+    tk.Button(sub,
+              text="Mostrar resultados",
+              font=("Arial", 12),
+              width=18,
+              command=resolver_falsa_posicion).pack(pady=15)
+
+    # Botón cerrar
+    tk.Button(sub,
+              text="Cerrar",
+              font=("Arial", 12),
+              command=sub.destroy).pack(pady=5)

@@ -33,37 +33,13 @@ def metodoPotencia(A, x0, numIter):
         if c == 0:
             raise ValueError("El método falla: y es el vector nulo. El método no puede continuar con este vector inicial.")
 
-        # nuevo vector x
+        # nuevo vector normalizado
         x = y / c
 
-        #Valor propio aproximado
-        lambda_k = c
+        x_norm = y / -y[0]
 
-        #Vector propio asociado
-        x_k = y / np.abs(y)
+        # guardar el valor propio aproximado (c) y vector asociado (normalizado)
+        historial.append((c, x_norm.copy()))
 
-        # Guardar datos de la iteración
-        historial.append((lambda_k, x_k.copy()))
-
-    return lambda_k, x_k, historial
-
-def mainPotencia():
-    print("*****MÉTODO DE LA POTENCIA*****\n")
-    A, x0 = ingresarDatos()
-
-    numIter = int(input("\nIngrese el número de iteraciones a calcular: "))
-
-    # Ejecutar método de la potencia
-    eigenvalor, eigenvector, historial = metodoPotencia(A, x0, numIter)
-
-    #Mostrar resultados
-    print(f"\nEl valor propio dominante es: {eigenvalor}")
-    print(f"El vector propio asociado a {eigenvalor} es:\n{eigenvector}")
-
-    #Iteraciones
-    print("\n Iteraciones (valor propio, vector propio):")
-    for i, (c, x) in enumerate(historial, start=1):
-        print(f"Iteración {i-1}: Autovalor = {c}, Autovector = {x}")
-
-    print("\nComprobación Ax = λx: \n")
-    print(A @ eigenvector)  # Multiplicación matricial A·x
+    # Valor propio dominante y vector asociado
+    return c, x_norm, historial

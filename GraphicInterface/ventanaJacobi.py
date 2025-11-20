@@ -24,10 +24,10 @@ def ventanaJacobi():
     sub.geometry("600x600")
 
     tk.Label(sub, text="Método de Jacobi",
-             font=("Arial", 16, "bold")).pack(pady=10)
+            font=("Arial", 16, "bold")).pack(pady=10)
 
     tk.Label(sub, text="Ingrese el tamaño de la matriz (nxn):",
-             font=("Arial", 12)).pack()
+            font=("Arial", 12)).pack()
 
     entrada_n = tk.Entry(sub, width=5, font=("Arial", 12))
     entrada_n.pack()
