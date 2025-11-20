@@ -14,12 +14,6 @@ from Methods.inputsMatriz import mainInputs as ingresarDatos
 def metodoPotenciaInversa(A, x0, numIter):
 
     A = A.astype(float)
-    n = len(A)
-
-    # Verificar que A sea invertible
-    if np.linalg.det(A) == 0:
-        raise ValueError("La matriz A NO es invertible, no se puede aplicar potencia inversa.")
-
     #Convertir x0 a array numpy
     x = np.array(x0, dtype=float)
 
@@ -27,62 +21,47 @@ def metodoPotenciaInversa(A, x0, numIter):
     if np.allclose(x, 0):
         raise ValueError("El vector inicial x0 NO puede ser el vector nulo.")
 
-    # Normalizar vector inicial
-    x = x / np.linalg.norm(x)
+
+    # Verificar que A sea invertible
+    if np.linalg.det(A) == 0:
+        raise ValueError("La matriz A NO es invertible, no se puede aplicar potencia inversa.")
+
 
     historial = []
 
     for k in range(numIter):
 
-        # Resolver Ainv
-        y = np.linalg.solve(A, x)
+        # Resolver A·y = x  →  y = A^{-1} x sin invertir
+        try:
+            y = np.linalg.solve(A, x)
+        except Exception:
+            raise ValueError("Error al resolver el sistema A·y = x")
 
-        # Componente dominante
+        # Componente dominante (autovalor aproximado inverso)
         c = np.max(np.abs(y))
 
         if c == 0:
-            raise ValueError("El método falla: y es el vector nulo.")
+            raise ValueError("El método falla: el vector y se volvió nulo.")
 
-        # Nuevo vector normalizado
-        x = y / c
+        # Vector normalizado para siguiente iteración
+        x_normalizado = y / c
 
-        # Autovalor aproximado
-        lambda_k = 1 / c
+        # Vector propio escalado al estilo clásico
+        # Último componente igual a 1 (si posible)
+        if np.abs(y[-1]) > 1e-12:
+            x_escalado = y / y[-1]
+        else:
+            idx = np.argmax(np.abs(y))
+            x_escalado = y / y[idx]
 
-        # Guardar datos de la iteración
-        historial.append((lambda_k, x.copy()))
+        # Para siguiente iteración
+        x = x_normalizado.copy()
 
-    # Últimas aproximaciones
-    lambda_min = historial[-1][0]
-    x_final = historial[-1][1]
+        historial.append((1/c, x_normalizado.copy(), x_escalado.copy()))
 
-    return lambda_min, x_final, historial
+    # Últimos valores
+    eigenvalor_inverso = 1/c
+    eigenvector_normalizado = x_normalizado.copy()
+    eigenvector_escalado = x_escalado.copy()
 
-def mainPotenciaInversa():
-    print("*****MÉTODO DE LA POTENCIA INVERSA*****\n")
-    A, x0 = ingresarDatos()
-
-    numIter = int(input("\nIngrese el número de iteraciones a calcular: "))
-
-    # Ejecutar método de la potencia inversa
-    eigenvalor_min, eigenvector, historial = metodoPotenciaInversa(A, x0, numIter)
-
-    #Mostrar resultados
-    print("RESULTADOS DEL MÉTODO DE LA POTENCIA INVERSA\n")
-
-    print("\nValor propio mínimo aproximado:")
-    print(f"λ_min ≈ {eigenvalor_min:.8f}\n")
-
-    print(f"Vector propio asociado a {eigenvalor_min}: \n")
-    for i, val in enumerate(eigenvector):
-        print(f"x{i+1} = {val:.6f}")
-
-    print("Iteraciones:")
-    for k, (lambdak, xv) in enumerate(historial):
-        print(f"Iteración {k+1}:")
-        print(f"  λ ≈ {lambdak:.8f}")
-        print(f"  x = {xv}\n")
-
-    print("\nComprobación: \nA·x ≈ λ·x:")
-    print(A @ eigenvector)  # Multiplicación matricial A·x
-
+    return eigenvalor_inverso, eigenvector_normalizado, eigenvector_escalado, historial

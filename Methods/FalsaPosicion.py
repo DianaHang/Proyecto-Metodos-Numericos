@@ -1,15 +1,19 @@
 '''
-    El siguiente programa satisface la ecuación 
-    propuesta  f(x) = 3x - (x+2)^2 * e^(-x) 
-    por Método de Falsa posición
+    Este programa implementa las soluciones que satisfacen 
+    las ecuaciones dadas mediante el uso del método de Falsa posición
 '''
 import math
 import pandas as pd
-import matplotlib.pyplot as plt
 
 #Funciones a trabajar
 def f1(x):
-    return (3*x) - pow(x+2, 2) * math.exp(-x)
+    return (3*x) - (x+2)**2 * math.exp(-x)
+
+def f2(x):
+    return math.cos(x) + 2*math.sin(x) + x**2
+
+def f3(x):
+    return math.sin(x) - 0.5
 
 
 def leerInputs(): #Entradas para el usuario
@@ -30,77 +34,30 @@ def leerInputs(): #Entradas para el usuario
           print("ERROR: INGRESE ENTRADAS VÁLIDAS.\n")
           
 #Método de Falsa Posición
-def metodoFalsaPosicion(f, a, b, n = 12): #Se define MF, maximo 12 interaciones.
-    iteraciones = []
-    aList = []
-    bList = [] #se crean celdas tipo excel
-    faList = []
-    fbList = []
-    xnList = []
-    fxnList = []
+def metodoFalsaPosicion(f, a, b, n):
+    if f(a) * f(b) > 0:
+        raise ValueError("El intervalo no cumple f(a)*f(b) < 0. No se garantiza raíz.")
 
-    #Realizar iteraciones con método de Falsa Posición
-    for i in range(n):
-      fa = f(a)
-      fb = f(b)
-      if (fb - fa) == 0: #conidicion si hay 0/0
-         print("LA DIVISIÓN ENTRE CERO NO ESTÁ DEFINIDA: FIN DE LA ITERACIÓN.")
-         break
-      xn = (a * fb - b * fa) / (fb - fa)#aproximación a la raíz
-      fxn = f(xn) #llamada recursiva, se autoevalua para generar nueva aproximación
-      iteraciones.append(i+1)
-      aList.append(a)
-      bList.append(b) #append, agrega al final de la lista
-      
-      faList.append(fa)
-      fbList.append(fb)
-      
-      xnList.append(xn)
-      fxnList.append(fxn)
-      
-#Aqui se actualiza el intervalo, sin ello, no existe método
-      if fa * fxn < 0:
-          b = xn
-      elif fa * fxn > 0:
-          a = xn
-      else:
-          # Al multiplicar las funciones evualidas si son  = 0 fin del programa.
-          break
-      
-                           #las lineas de abajo crean las gráficas panda las llama
-    df = pd.DataFrame({
-        "n": iteraciones,
-        "a": aList,
-        "b": bList,
-        "f(a)": faList,
-        "f(b)": fbList,
-        "xn": xnList,
-        "f(xn)": fxnList
-        })
-    return df, xnList[-1] #Nos regresa el último valor
+    datos = []
 
-#Salida del programa
-def mainFP():
-    print("==============MÉTODO DE FALSA POSICIÓN==================\n")
-    print("========================================================\n")
-    print("IMPORTANTE: asegurarse que al evaluar la funcion, lo signos sean distintos.")
-    a, b = leerInputs()
-    
-    dfResul, raiz = metodoFalsaPosicion(f1, a, b, n = 12)
-    
-    #Imprimir tabla con Pandas
-    pd.set_option('display.float_format', '{:.4f}'.format)
-    print("\nResultados del método de Falsa Posición:\n")
-    print(dfResul.to_string(index=False))
-    
-    print(f"\nSolución del la ecuación lineal propuesta;  f(x) = 3x - (x+2)^2 * e^(-x) es: \n x ≈ {raiz:.4f}")
-                           
-    #Gráfica del método
-    plt.figure(figsize=(8,5))
-    plt.plot(dfResul["n"], dfResul["xn"], marker='*', linestyle='-', color='green')
-    plt.title("Convergencia del Método de Falsa Posición", fontsize=14)
-    plt.xlabel("Número de iteraciones", fontsize=12)
-    plt.ylabel("xn (aprox. de raíz)", fontsize=12)
-    plt.grid(True, linestyle='--', alpha=0.6)
-    plt.show()
+    for i in range(1, n+1):
 
+        fa = f(a)
+        fb = f(b)
+
+        # Punto por Falsa Posición
+        c = b - fb * (b - a) / (fb - fa)
+        fc = f(c)
+
+        # Guardar en DataFrame
+        datos.append([i, a, b, c, fa, fb, fc])
+
+        # Actualizar intervalo
+        if fa * fc < 0:
+            b = c
+        else:
+            a = c
+
+    df = pd.DataFrame(datos, columns=["n", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
+
+    return df, c

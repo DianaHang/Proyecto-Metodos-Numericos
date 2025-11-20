@@ -5,7 +5,6 @@
 """
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from Methods.inputsMatriz import mainInputs as ingresarDatos
 
@@ -42,23 +41,3 @@ def cholesky(A, b):
         x[i] = (v[i] - sum(Lt[i][k] * x[k] for k in range(i+1, n))) / Lt[i][i]
 
     return L, Lt, v, x
-
-def mainCholesky():
-    print("*****MÉTODO DE CHOLESKY*****\n")
-    A, b = ingresarDatos()
-
-    try:
-        L, Lt, v, x = cholesky(A, b)
-
-        print("\nMatriz L:")
-        print(L)
-        print("\nMatriz L^T:")
-        print(Lt)
-        print("\n (Lv = b): \nSustitución progresiva para v: ")
-        v = np.transpose(v)
-        print(v)
-        print("\n (L^T x = v): \nSustitución regresiva para x: ")
-        print(x)
-
-    except ValueError as e:
-        print("Hubo un error inesperado: \n", e)
