@@ -11,7 +11,8 @@ if ruta_proyecto not in sys.path:
 import tkinter as tk
 import pygame
 
-# Importar ventanas individuales
+# Importar ventanas individuales 
+# No se usan porque se implementan ventanas de intro antes que ventanas del metodo
 from .ventanaFalsaPosicion import ventanaFalsaPosicion
 from .ventanaNewton import ventanaNewton
 from .ventanaSecante import ventanaSecante
@@ -23,6 +24,17 @@ from .ventanaCholesky import ventanaCholesky
 from .ventanaPotencia import ventanaPotencia
 from .ventanaPotenciaInversa import ventanaPotenciaInversa
 
+# Importar intros individuales
+from GraphicInterface.Introductions.introFalsaPosicion import introFalsaPosicion
+from GraphicInterface.Introductions.introNewton import introNewton
+from GraphicInterface.Introductions.introSecante import introSecante
+from GraphicInterface.Introductions.introCholesky import introCholesky
+from GraphicInterface.Introductions.introGauss import introGauss
+from GraphicInterface.Introductions.introJacobi import introJacobi
+from GraphicInterface.Introductions.introGaussSeidel import introGaussSeidel
+from GraphicInterface.Introductions.introDoolittle import introDoolittle
+from GraphicInterface.Introductions.introPotencia import introPotencia
+from GraphicInterface.Introductions.introPotenciaInversa import introPotenciaInversa
 
 #            SUBMENÚS
 def submenu_ecuaciones_no_lineales():
@@ -31,20 +43,20 @@ def submenu_ecuaciones_no_lineales():
     sub.geometry("300x200")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    tk.Button(sub, text="Falsa Posición", width=20, command= ventanaFalsaPosicion).pack(pady=5)
-    tk.Button(sub, text="Newton", width=20, command=ventanaNewton).pack(pady=5)
-    tk.Button(sub, text="Secante", width=20, command = ventanaSecante).pack(pady=5)
+    tk.Button(sub, text="Falsa Posición", width=20, command=lambda: introFalsaPosicion(sub)).pack(pady=5)
+    tk.Button(sub, text="Newton",width=20,command=lambda: introNewton(sub)).pack(pady=5)
+    tk.Button(sub, text="Secante", width=20, command=lambda: introSecante(sub)).pack(pady=5)
 
 
 def submenu_sistemas_lineales():
     sub = tk.Toplevel()
-    sub.title("Sistemas lineales")
+    sub.title("Sistemas de Ecuaciones Lineales")
     sub.geometry("300x200")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    tk.Button(sub, text="Gauss", width=20, command = ventanaGauss).pack(pady=5)
-    tk.Button(sub, text="Jacobi", width=20, command = ventanaJacobi).pack(pady=5)
-    tk.Button(sub, text="Gauss-Seidel", width=20, command = ventanaGaussSeidel).pack(pady=5)
+    tk.Button(sub, text="Gauss", width=20, command=lambda: introGauss(sub)).pack(pady=5)
+    tk.Button(sub, text="Jacobi", width=20, command=lambda: introJacobi(sub)).pack(pady=5)
+    tk.Button(sub, text="Gauss-Seidel", width=20, command=lambda: introGaussSeidel(sub)).pack(pady=5)
 
 def submenu_factorizacion_lu():
     sub = tk.Toplevel()
@@ -52,17 +64,17 @@ def submenu_factorizacion_lu():
     sub.geometry("300x200")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    tk.Button(sub, text="Doolittle", width=20, command= ventanaDoolittle).pack(pady=5)
-    tk.Button(sub, text="Cholesky", width=20, command= ventanaCholesky).pack(pady=5)
+    tk.Button(sub, text="Doolittle", width=20, command=lambda: introDoolittle(sub)).pack(pady=5)
+    tk.Button(sub, text="Cholesky", width=20, command=lambda: introCholesky(sub)).pack(pady=5)
 
 def submenu_valores_vectores():
     sub = tk.Toplevel()
-    sub.title("Valores y vectores propios")
+    sub.title("Valores y Vectores Propios")
     sub.geometry("300x200")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    tk.Button(sub, text="Potencia", width=20, command= ventanaPotencia).pack(pady=5)
-    tk.Button(sub, text="Potencia Inversa", width=20, command= ventanaPotenciaInversa).pack(pady=5)
+    tk.Button(sub, text="Potencia", width=20, command=lambda: introPotencia(sub)).pack(pady=5)
+    tk.Button(sub, text="Potencia Inversa", width=20, command=lambda: introPotenciaInversa(sub)).pack(pady=5)
 
 #          MENÚ PRINCIPAL
 def mostrar_menu(root):
@@ -73,10 +85,10 @@ def mostrar_menu(root):
              font=("Arial", 16, "bold")).pack(pady=15)
 
     botones = [
-        ("Ecuaciones no lineales", submenu_ecuaciones_no_lineales),
-        ("Sistemas de ecuaciones lineales", submenu_sistemas_lineales),
-        ("Factorización LU", submenu_factorizacion_lu),
-        ("Valores y vectores propios", submenu_valores_vectores)
+        ("Ecuaciones no lineales",lambda root=root: intro_ecuaciones_no_lineales(root)),
+        ("Sistemas de ecuaciones lineales", lambda root=root: intro_ecuaciones_lineales(root)),
+        ("Factorización LU", lambda root=root: intro_factorizacion_lu(root)),
+        ("Valores y vectores propios", lambda root=root: intro_valores_vectores(root))
     ]
 
     # Crear botones para cada opción
@@ -130,9 +142,66 @@ def mostrar_ventana_intro(root, titulo, texto, accion_continuar):
     tk.Message(root, text=texto, width=600, font=("Arial", 12)).pack(
         expand=True, fill="both", padx=20, pady=10
     )
-
+    #boton para continuar
     tk.Button(root, text="Continuar", width=20, height=2,
               command=accion_continuar).pack(pady=20)
+    #Boton para regresar al menú principal
+    tk.Button(root, text="Regresar al Menú Principal", width=25, height=2,
+              command=lambda: mostrar_menu(root)).pack(pady=10)
+    
+#-------------------------------------------------   
+#Funciones para la introduccion de los 4 submenús 
+#-------------------------------------------------
+def intro_ecuaciones_no_lineales(root):
+    texto = (
+        "En este módulo podrás resolver ecuaciones no lineales\n"
+        "usando métodos numéricos clásicos como:\n\n"
+        "- Falsa Posición\n"
+        "- Newton\n"
+        "- Secante\n\n"
+        "Haz clic en continuar para abrir el submenú.\n"
+        "Haz clic en regresar para volver al menú principal."
+    )
+    mostrar_ventana_intro(root, "Ecuaciones No Lineales", texto,
+                          lambda: submenu_ecuaciones_no_lineales())
+
+def intro_ecuaciones_lineales(root):
+    texto = (
+        "En este módulo podrás resolver sistemas de ecuaciones lineales\n"
+        "usando métodos numéricos clásicos como:\n\n"
+        "- Gauss\n"
+        "- Jacobi\n"
+        "- Gauss-Seidel\n\n"
+        "Haz clic en continuar para abrir el submenú.\n"
+        "Haz clic en regresar para volver al menú principal."
+    )
+    mostrar_ventana_intro(root, "Sistemas de Ecuaciones Lineales", texto,
+                          lambda: submenu_sistemas_lineales())
+
+def intro_factorizacion_lu(root):
+    texto = (
+        "En este módulo podrás resolver sistemas de ecuaciones lineales\n"
+        "usando métodos numéricos clásicos como:\n\n"
+        "- Doolittle\n"
+        "- Cholesky\n\n"
+        "Haz clic en continuar para abrir el submenú.\n"
+        "Haz clic en regresar para volver al menú principal."
+    )
+    mostrar_ventana_intro(root, "Factorización LU", texto,
+                          lambda: submenu_factorizacion_lu())
+    
+def intro_valores_vectores(root):
+    texto = (
+        "En este módulo podrás resolver sistemas de ecuaciones lineales\n"
+        "usando métodos numéricos clásicos como:\n\n"
+        "- Potencia\n"
+        "- Potencia Inversa\n\n"
+        "Haz clic en continuar para abrir el submenú.\n"
+        "Haz clic en regresar para volver al menú principal."
+    )
+    mostrar_ventana_intro(root, "Valores y Vectores Propios", texto,
+                          lambda: submenu_valores_vectores())
+#------------------------------------------------------------------------------
 
 #Funcion para mostrar la pantalla final (agradecimientos) 
 def pantalla_final(root):
@@ -142,7 +211,7 @@ def pantalla_final(root):
         "Este software fue desarrollado por estudiantes de MAC.\n"
         "\tDerechos reservados UNAM.©\n\n"
         "\n\n"
-        "Cierra la ventana para salir o presiona 'Continuar'",
+        "Presiona 'Continuar' para salir\n",
         lambda: root.quit()
     )
 
