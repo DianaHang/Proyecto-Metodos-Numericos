@@ -1,6 +1,7 @@
 import sys
 import os
 
+### Ajustar ruta para importar módulos del proyecto
 ruta_actual = os.path.dirname(os.path.abspath(__file__))          # /GraphicInterface
 ruta_proyecto = os.path.dirname(ruta_actual)                      # /ProyectoFinal
 
@@ -9,7 +10,7 @@ if ruta_proyecto not in sys.path:
 
 """##################################################
 """
-
+#Librerías
 import tkinter as tk
 from tkinter import messagebox
 import numpy as np
@@ -37,9 +38,7 @@ def ventanaJacobi():
     entradas_A = []
     entradas_b = []
 
-    # ===========================
     # Crear matriz dinámica
-    # ===========================
     def crear_matriz():
         nonlocal entradas_A, entradas_b
 
@@ -68,7 +67,7 @@ def ventanaJacobi():
         for i in range(n):
             fila = []
             for j in range(n):
-                e = tk.Entry(frame_matriz, width=6, font=("Arial", 11))
+                e = tk.Entry(frame_matriz, width=6, font=("Arial", 12))
                 e.grid(row=i, column=j, padx=3, pady=3)
                 fila.append(e)
             entradas_A.append(fila)
@@ -79,7 +78,7 @@ def ventanaJacobi():
 
         # Crear campos b
         for i in range(n):
-            e = tk.Entry(frame_vector, width=6, font=("Arial", 11))
+            e = tk.Entry(frame_vector, width=6, font=("Arial", 12))
             e.grid(row=i, column=0, pady=3)
             entradas_b.append(e)
 
@@ -95,10 +94,7 @@ def ventanaJacobi():
     entrada_iter.insert(0, "")
     entrada_iter.pack()
 
-    # ===========================
     # Resolver Jacobi
-    # ===========================
-
     def resolver_jacobi():
         try:
             n = int(entrada_n.get())

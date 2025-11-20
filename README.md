@@ -154,13 +154,7 @@ encantados de ayudarle.
 
 ## Créditos
 
-<table border="0" cellspacing="10" cellpadding="10">
-  <tr>
-    <td align="center" valign="top">
-      ![Footer](Assets/footer.png)
-    </td>
-    <td align="center" valign="top">
-      ![Logo](Assets/logo-PySolve-Interactive.png)
-    </td>
+![Footer](Assets/footer.png)
+![Logo](Assets/logo-PySolve-Interactive.png)
 
 Hecho en México por estudiantes de la UNAM, todos los derechos reservados 2025. ©

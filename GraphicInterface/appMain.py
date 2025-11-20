@@ -7,8 +7,8 @@ ruta_proyecto = os.path.dirname(ruta_actual)
 if ruta_proyecto not in sys.path:
     sys.path.insert(0, ruta_proyecto)
 
+#Librerías
 import tkinter as tk
-from tkinter import messagebox
 import pygame
 
 # Importar ventanas individuales
@@ -18,16 +18,13 @@ from .ventanaSecante import ventanaSecante
 from .ventanaGauss import ventanaGauss
 from .ventanaJacobi import ventanaJacobi
 from .ventanaGaussSeidel import ventanaGaussSeidel
-#from .ventanaDoolitle import ventanaDoolitle
-#from .ventanaCholesky import ventanaCholesky
-#from .ventanaPotencia import ventanaPotencia
-#from .ventanaPotenciaInversa import ventanaPotenciaInversa
+from .ventanaDoolitle import ventanaDoolittle
+from .ventanaCholesky import ventanaCholesky
+from .ventanaPotencia import ventanaPotencia
+from .ventanaPotenciaInversa import ventanaPotenciaInversa
 
 
-# ===============================
 #            SUBMENÚS
-# ===============================
-
 def submenu_ecuaciones_no_lineales():
     sub = tk.Toplevel()
     sub.title("Ecuaciones no lineales")
@@ -55,8 +52,8 @@ def submenu_factorizacion_lu():
     sub.geometry("300x200")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    #tk.Button(sub, text="Doolittle", width=20, command= ventanaDoolitle).pack(pady=5)
-    #tk.Button(sub, text="Cholesky", width=20, command= ventanaCholesky).pack(pady=5)
+    tk.Button(sub, text="Doolittle", width=20, command= ventanaDoolittle).pack(pady=5)
+    tk.Button(sub, text="Cholesky", width=20, command= ventanaCholesky).pack(pady=5)
 
 def submenu_valores_vectores():
     sub = tk.Toplevel()
@@ -64,13 +61,10 @@ def submenu_valores_vectores():
     sub.geometry("300x200")
 
     tk.Label(sub, text="Métodos disponibles:", font=("Arial", 12)).pack(pady=10)
-    #tk.Button(sub, text="Método de la Potencia", width=20, command= ventanaPotencia).pack(pady=5)
-    #tk.Button(sub, text="Método de la Potencia Inversa", width=20, command= ventanaPotenciaInversa).pack(pady=5)
+    tk.Button(sub, text="Potencia", width=20, command= ventanaPotencia).pack(pady=5)
+    tk.Button(sub, text="Potencia Inversa", width=20, command= ventanaPotenciaInversa).pack(pady=5)
 
-# ===============================
 #          MENÚ PRINCIPAL
-# ===============================
-
 def mostrar_menu(root):
     for w in root.winfo_children():
         w.destroy()
@@ -94,10 +88,7 @@ def mostrar_menu(root):
               command=lambda: pantalla_final(root)).pack(pady=15)
 
 
-# ===============================
 #   PANTALLAS DE PRESENTACIÓN
-# ===============================
-
 def mostrar_introduccion(root):
     for w in root.winfo_children():
         w.destroy() # Limpia la ventana principal
@@ -155,15 +146,11 @@ def pantalla_final(root):
         lambda: root.quit()
     )
 
-# ===============================
 #             MAIN
-# ===============================
-
 def main():
     #Inicializar pygame para la música de fondo
     pygame.mixer.init()
     ruta_musica = os.path.join(ruta_proyecto, "Assets",     "Rivendell - Howard Shore.mp3")
-
     if os.path.exists(ruta_musica):
         pygame.mixer.music.load(ruta_musica)
         pygame.mixer.music.play(-1) #Reproducir en bucle
