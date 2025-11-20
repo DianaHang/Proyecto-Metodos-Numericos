@@ -7,6 +7,7 @@
         -   [Prerrequisitos](#prerrequisitos)
         -   [Stack](#stack)
     -   [Contenido](#contenido)
+    -   [Cómo funciona](#cómo-funciona)
     -   [Detalles](#detalles)
     -   [Autores](#autores)
     -   [Créditos](#créditos)
@@ -128,6 +129,35 @@ Este repositorio incluye:
     Archivo `README.md` (documentación) con explicaciones, notas y estructura interna del
     proyecto.
 
+## Cómo funciona
+
+**1. Abra el programa**  
+- Abra la carpeta del proyecto y busque el archivo suelto llamado `main.py`.
+- Ejecute dicho archivo en cualquier IDE (Entorno de Desarrollo) de su preferencia. \
+    Asegúrese de contar con Python instalado en su ordenador y conectado a su IDE.
+- Una vez ejecutado, el aplicativo despliega una ventana principal que muestra una breve introducción seguida de un menú con los tipos de métodos numéricos trabajados.
+
+**2. Seleccione un método**
+- Sobre cada submenú se aprecian botones para seleccionar el método que se quiera visualizar.
+- Al hacer clic, se muestra una ventana introductoria breve, al oprimir 'continuar' se procede a poner en práctica el método en cuestión.
+
+**3. Ingrese datos**
+- A continuación, ingrese los datos solicitados por el método.
+- En caso de que los datos carezcan de coherencia, ya sea por entradas inválidas (letras en lugar de números) o por las propias condiciones (limitantes) del método, el programa despliega advertencias.
+
+**4. Obtención de resultados**
+- Al ejecutar el método, se visualiza la ventana de resultados, en la cual se puede llegar a mostrar:
+    - El procedimiento (si aplica),
+    - Los valores numéricos pertinentes.
+    - Las iteraciones.
+    - Gráficas de convergencia (si aplica).
+
+> [!NOTE]
+> No es necesario ingresar a cada archivo o carpeta para la ejecución del programa.
+> Basta con ejecutar el archivo `main.py`. \
+> Para una mejor visualización de los resultados, se sugiere escoger un número de iteraciones bajo (hasta 10). 
+> Se está trabajando para mejorar la entrega gráfica de  los resultados.
+
 ## Detalles
 
 Este proyecto forma parte de un esfuerzo académico para desarrollar una
@@ -139,7 +169,7 @@ o integrar animaciones para mostrar los pasos iterativos, estaremos
 encantados de ayudarle.
 
 > [!TIP] 
-> Puedes ampliar el proyecto incorporando nuevos algoritmos,
+> Puede ampliar el proyecto incorporando nuevos algoritmos,
 > añadiendo menús, mejorando la interfaz u optimizando el código utilizado.
 
 - Se ha trabajado este proyecto de manera colaborativa utilizando herramientas como git y GitHub para un mejor desarrollo.
