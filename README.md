@@ -69,8 +69,9 @@ Para ejecutar este proyecto, asegúrese de contar con:
 
 Este proyecto utiliza:
 
+-   Tener descargado e implementado:
 -   `Python` (recomendado 3.10+)
--   `pygame` para la interfaz gráfica
+-   `pygame`
 -   Implementaciones manuales de algoritmos numéricos
 -   Conceptos clave como:
     -   Métodos para resolver ecuaciones no lineales (Falsa Posición, Secante,
