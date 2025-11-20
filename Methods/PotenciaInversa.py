@@ -8,8 +8,6 @@
 """
 import numpy as np
 
-from Methods.inputsMatriz import mainInputs as ingresarDatos
-
 #Método de la Potencia Inversa
 def metodoPotenciaInversa(A, x0, numIter):
 
@@ -31,37 +29,27 @@ def metodoPotenciaInversa(A, x0, numIter):
 
     for k in range(numIter):
 
-        # Resolver A·y = x  →  y = A^{-1} x sin invertir
+        # Resolver A·y = x  →  y = A^{-1} x
         try:
+            #linalg.solve ayuda a calcular la inversa automáticamente
             y = np.linalg.solve(A, x)
         except Exception:
             raise ValueError("Error al resolver el sistema A·y = x")
 
-        # Componente dominante (autovalor aproximado inverso)
-        c = np.max(np.abs(y))
+        # Normalización
+        c = np.linalg.norm(y)
+        
 
         if c == 0:
             raise ValueError("El método falla: el vector y se volvió nulo.")
 
-        # Vector normalizado para siguiente iteración
-        x_normalizado = y / c
+        # Siguiente iteración
+        x = y / c
 
-        # Vector propio escalado al estilo clásico
-        # Último componente igual a 1 (si posible)
-        if np.abs(y[-1]) > 1e-12:
-            x_escalado = y / y[-1]
-        else:
-            idx = np.argmax(np.abs(y))
-            x_escalado = y / y[idx]
+        # Cálculo del autovalor aproximado
+        # λ ≈ (xᵀ A x) / (xᵀ x)   → Cociente de Rayleigh
+        lambda_aprox = (x.T @ A @ x) / (x.T @ x)
 
-        # Para siguiente iteración
-        x = x_normalizado.copy()
+        historial.append((lambda_aprox, x.copy()))
 
-        historial.append((1/c, x_normalizado.copy(), x_escalado.copy()))
-
-    # Últimos valores
-    eigenvalor_inverso = 1/c
-    eigenvector_normalizado = x_normalizado.copy()
-    eigenvector_escalado = x_escalado.copy()
-
-    return eigenvalor_inverso, eigenvector_normalizado, eigenvector_escalado, historial
+    return lambda_aprox, x, historial

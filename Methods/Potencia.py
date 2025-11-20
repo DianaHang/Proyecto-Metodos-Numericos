@@ -6,8 +6,6 @@
 
 import numpy as np
 
-from Methods.inputsMatriz import mainInputs as ingresarDatos
-
 #Método de la Potencia
 def metodoPotencia(A, x0, numIter):
 
