@@ -22,7 +22,7 @@ def introNewton(root):
     intro.geometry("500x450")
 
     texto = (
-        "Método de Newton-Raphson\n\n"
+        "Método de Newton\n\n"
         "Este método numérico sirve para encontrar raíces de ecuaciones "
         "no lineales utilizando aproximaciones sucesivas.\n\n"
         "La fórmula principal es:\n\n"

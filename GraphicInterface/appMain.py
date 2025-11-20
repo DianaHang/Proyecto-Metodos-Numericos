@@ -107,7 +107,7 @@ def mostrar_introduccion(root):
 
     texto = (
         "Bienvenido al programa de Métodos Numéricos.\n\n"
-        "En este software podrás aplicar distintos métodos para resolver:\n"
+        "En este software podrás aplicar distintos métodos para resolver:\n\n"
         "- Ecuaciones no lineales.\n"
         "- Sistemas de ecuaciones lineales.\n"
         "- Factorización LU.\n"
@@ -122,16 +122,58 @@ def mostrar_introduccion(root):
     tk.Button(root, text="Continuar", width=20, height=2,
               command=lambda: mostrar_menu(root)).pack(pady=15)
 
-
+# Funcion para mostrar la portada principal
 def mostrar_portada(root):
     for w in root.winfo_children():
         w.destroy()
 
-    tk.Label(root, text="MÉTODOS NUMÉRICOS",
-             font=("Arial", 20, "bold")).pack(expand=True)
+    root.title("PySolve - Portada")
 
-    tk.Button(root, text="Continuar", width=20,
-              height=2, command=lambda: mostrar_introduccion(root)).pack(pady=30)
+    contenedor = tk.Frame(root)
+    contenedor.pack(expand=True)
+
+    tk.Label(contenedor,
+             text="Universidad Nacional Autónoma de México",
+             font=("Arial", 14, "bold")).pack(pady=5)
+
+    tk.Label(contenedor,
+             text="Facultad de Estudios Superiores Acatlán",
+             font=("Arial", 13)).pack(pady=3)
+
+    tk.Label(contenedor,
+             text="Lic. en Matemáticas Aplicadas y Computación",
+             font=("Arial", 12)).pack(pady=3)
+
+    tk.Label(contenedor,
+             text="Métodos Numéricos I",
+             font=("Arial", 12)).pack(pady=3)
+
+    tk.Label(contenedor,
+             text="Profesor: Curiel García Carlos Pedro",
+             font=("Arial", 12)).pack(pady=10)
+    
+    tk.Label(contenedor,
+             text="Software desarrollado por:\n\n"
+                  " - García Melgarejo Diana Karina\n"
+                  " - Jacobo Santos Marco Antonio\n"
+                  " - Segoviano Salinas Eduardo",
+             font=("Arial", 12),
+             justify="center").pack(pady=15)
+    
+    tk.Label(contenedor,
+             text="PySolve",
+             font=("Arial", 40, "bold")).pack(pady=2)
+    
+    tk.Label(contenedor,
+             text="Interactive",
+             font=("Arial", 20, "bold")).pack(pady=10)
+
+    tk.Button(contenedor,
+              text="Continuar",
+              width=20,
+              height=2,
+              font=("Arial", 12),
+              command=lambda: mostrar_introduccion(root)).pack(pady=30)
 
 #Funcion para mostrar las introducciones
 def mostrar_ventana_intro(root, titulo, texto, accion_continuar):
@@ -207,11 +249,13 @@ def intro_valores_vectores(root):
 def pantalla_final(root):
     mostrar_ventana_intro(
         root,
-        "¡Gracias por usar el sistema!\n",
-        "Este software fue desarrollado por estudiantes de MAC.\n"
-        "\tDerechos reservados UNAM.©\n\n"
-        "\n\n"
-        "Presiona 'Continuar' para salir\n",
+         "¡Gracias por usar el sistema!\n\n",
+        "Agradecemos especialmente al profesor\n"
+        "Curiel García Carlos Pedro por su vocación\n"
+        "y dedicación como docente.\n\n"
+        "Proyecto académico de la FES Acatlán - UNAM.\n"
+        "Todos los derechos reservados © 2025\n\n"
+        "Presiona 'Continuar' para salir.\n",
         lambda: root.quit()
     )
 
