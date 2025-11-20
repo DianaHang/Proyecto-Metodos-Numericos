@@ -259,8 +259,8 @@ def pantalla_final(root):
         "Curiel García Carlos Pedro por su vocación\n"
         "y dedicación como docente.\n\n"
         "Proyecto académico de la FES Acatlán - UNAM.\n"
-        "\tTodos los derechos reservados © 2025\n\n"
-        "\tPresiona 'Continuar' para salir.\n",
+        "Todos los derechos reservados © 2025\n\n"
+        "Presiona 'Continuar' para salir.\n",
         lambda: root.quit()
     )
 
