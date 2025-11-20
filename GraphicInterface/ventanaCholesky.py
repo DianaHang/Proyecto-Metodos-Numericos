@@ -172,7 +172,5 @@ def ventanaCholesky():
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")
 
-    btn_resolver = tk.Button(sub, text="Resolver sistema",
-                             font=("Arial", 12),
-                             command=resolver_cholesky)
+    btn_resolver = tk.Button(sub, text="Resolver sistema", font=("Arial", 12), command=resolver_cholesky)
     btn_resolver.pack_forget()  # Oculto hasta crear la matriz

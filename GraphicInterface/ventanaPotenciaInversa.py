@@ -17,7 +17,6 @@ import numpy as np
 
 from Methods.PotenciaInversa import metodoPotenciaInversa
 
-
 def ventanaPotenciaInversa():
     sub = tk.Toplevel()
     sub.title("Método de la Potencia Inversa")
@@ -81,7 +80,7 @@ def ventanaPotenciaInversa():
         btn_resolver.pack(pady=15)
 
     #Botón para generar la matriz y el vector
-    tk.Button(sub, text="Crear matriz", command=crear_campos).pack(pady=10)
+    tk.Button(sub, text="Crear matriz",  font=("Arial", 12), command=crear_campos).pack(pady=10)
 
     # Entrada número de iteraciones
     tk.Label(sub, text="Número de iteraciones:", font=("Arial", 12)).pack()
@@ -136,9 +135,6 @@ def ventanaPotenciaInversa():
             for i, val in enumerate(x):
                 texto += f"x{i+1} = {val:.4f}\n"
 
-            texto += "\nComprobación: \nA·x ≈ λ·x:\n"
-            texto += str(A @ x) #Multiplicación matricial A·x
-
             messagebox.showinfo("Resultados", texto)
 
         except Exception as e:
@@ -146,3 +142,4 @@ def ventanaPotenciaInversa():
 
     btn_resolver = tk.Button(sub, text="Calcular", font=("Arial", 12), command=resolver_potencia_inversa)
     btn_resolver.pack_forget()  # Oculto hasta crear la matriz
+ 

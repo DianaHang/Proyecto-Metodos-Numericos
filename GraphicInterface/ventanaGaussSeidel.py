@@ -16,7 +16,6 @@ import numpy as np
 from Methods.GaussSeidel import gaussSeidel
 from Methods.inputsMatriz import diagonalDominante
 
-
 def ventanaGaussSeidel():
     sub = tk.Toplevel()
     sub.title("Método de Gauss-Seidel")

@@ -4,7 +4,6 @@
 """
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from Methods.inputsMatriz import mainInputs as ingresarDatos
    
@@ -46,25 +45,3 @@ def doolittle(A, b):
         x[i] = (v[i] - sum(U[i][j] * x[j] for j in range(i+1, n))) / U[i][i]
 
     return L, U, v, x
-
-def mainDoolittle():
-    print("*****MÉTODO DE DOOLITTLE*****\n")
-    A, b = ingresarDatos()
-    
-    try:
-        L, U, v, x = doolittle(A, b)
-        
-        print("\nMatriz L:")
-        print(L)
-        print("\nMatriz U:")
-        print(U)
-        print("\n (Lv = b): \nSustitución progresiva para v: ")
-        print("\nVector v= ")
-        v = np.transpose(v)
-        print(v)
-        print("\n (Ux = v): \nSustitución regresiva para x: ")
-        print("\nSolución x= ")
-        print(x)
-        
-    except ValueError as e:
-        print("Hubo un error inesperado: \n", e)

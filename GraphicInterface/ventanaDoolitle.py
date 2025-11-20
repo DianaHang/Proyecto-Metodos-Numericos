@@ -76,7 +76,7 @@ def ventanaDoolittle():
         btn_resolver.pack(pady=15)
 
     #Botón para crear matriz
-    tk.Button(sub, text="Crear matriz", command=crear_matriz).pack(pady=10)
+    tk.Button(sub, text="Crear matriz",  font=("Arial", 12), command=crear_matriz).pack(pady=10)
 
     # Ejecutar Doolittle
     def resolver_doolittle():
