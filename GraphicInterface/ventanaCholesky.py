@@ -17,7 +17,7 @@ import numpy as np
 
 from Methods.Cholesky import cholesky
 from Methods.inputsMatriz import diagonalDominante as reacomodarFilas
-
+from GraphicInterface.tablas import mostrar_tabla
 
 def ventanaCholesky():
     sub = tk.Toplevel()

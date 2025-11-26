@@ -16,6 +16,7 @@ from tkinter import messagebox
 import numpy as np
 
 from Methods.Potencia import metodoPotencia
+from GraphicInterface.tablas import mostrar_tabla
 
 
 def ventanaPotencia():

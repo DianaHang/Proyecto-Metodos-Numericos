@@ -14,6 +14,7 @@ import tkinter as tk
 from tkinter import messagebox
 import numpy as np
 from Methods.Doolittle import doolittle
+from GraphicInterface.tablas import mostrar_tabla
 
 
 def ventanaDoolittle():
@@ -117,6 +118,13 @@ def ventanaDoolittle():
             texto += str(A @ x)
 
             messagebox.showinfo("Resultados", texto)
+            '''
+            # Mostrar tablas de L, U, v, x
+            mostrar_tabla(pd.DataFrame(L), titulo="Matriz L")
+            mostrar_tabla(pd.DataFrame(U), titulo="Matriz U")
+            mostrar_tabla(pd.DataFrame(v, columns=["v"]), titulo="Vector v")
+            mostrar_tabla(pd.DataFrame(x, columns=["x"]), titulo="Solución x")
+            '''
 
         except Exception:
             messagebox.showerror("Error: Se ingresó un valor inesperado. Revise las entradas.")
