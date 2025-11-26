@@ -166,14 +166,14 @@ def mostrar_portada(root):
     
     tk.Label(contenedor,
              text="Interactive",
-             font=("Arial", 20, "bold")).pack(pady=10)
+             font=("Arial", 20, "bold")).pack(pady=5)
 
     tk.Button(contenedor,
               text="Continuar",
               width=20,
               height=2,
               font=("Arial", 12),
-              command=lambda: mostrar_introduccion(root)).pack(pady=30)
+              command=lambda: mostrar_introduccion(root)).pack(pady=20)
 
 #Funcion para mostrar las introducciones
 def mostrar_ventana_intro(root, titulo, texto, accion_continuar):

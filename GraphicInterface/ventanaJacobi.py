@@ -16,6 +16,7 @@ from tkinter import messagebox
 import numpy as np
 from Methods.Jacobi import jacobi
 from Methods.inputsMatriz import diagonalDominante
+from GraphicInterface.tablas import mostrar_tabla
 
 
 def ventanaJacobi():
@@ -140,12 +141,11 @@ def ventanaJacobi():
             texto += "Matriz diagonal dominante utilizada:\n"
             texto += str(ADom) + "\n\n"
 
-            texto += f"Convergencia del método para {numIter-1} iteraciones:\n"
-            texto += dfJacobi.to_string(index=False) + "\n\n"
+            messagebox.showinfo("Solución",
+                "\n".join([f"x{i+1} = {val:.6f}" for i, val in enumerate(solucion)])
+            )
 
-            texto += "Solución aproximada:\n"
-            for i, val in enumerate(solucion):
-                texto += f"x{i+1} = {val:.6f}\n"
+            mostrar_tabla(dfJacobi, titulo="Iteraciones Jacobi")
 
             # Mostrar resultados
             messagebox.showinfo("Resultados", texto)

@@ -15,6 +15,7 @@ from tkinter import messagebox
 import numpy as np
 from Methods.GaussSeidel import gaussSeidel
 from Methods.inputsMatriz import diagonalDominante
+from GraphicInterface.tablas import mostrar_tabla
 
 def ventanaGaussSeidel():
     sub = tk.Toplevel()
@@ -151,7 +152,11 @@ def ventanaGaussSeidel():
                 texto += f"x{i+1} = {val:.6f}\n"
 
             # Mostrar resultados
-            messagebox.showinfo("Resultados", texto)
+            # Mostrar DataFrame en tabla scrollable
+            mostrar_tabla(dfGaussSeidel, titulo="Iteraciones Gauss-Seidel")
+
+            # Mostrar solución en mensaje aparte
+            messagebox.showinfo("Solución", "\n".join([f"x{i+1} = {val:.6f}" for i, val in enumerate(solucion)]))
 
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")

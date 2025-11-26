@@ -5,6 +5,7 @@
     superior conforme a su diagonal principal.
 '''
 import numpy as np
+import pandas as pd
 from Methods.inputsMatriz import mainInputs as ingresarDatos
 
 #Método de Gauss
@@ -13,6 +14,8 @@ def metodoGauss(A, b):
     # Convertir a float para evitar errores
     A = A.astype(float)
     b = b.astype(float)
+
+    listaIteraciones = []
     
     # Eliminación hacia adelante
     for k in range(n-1):
@@ -26,6 +29,16 @@ def metodoGauss(A, b):
             A[i, k:] = A[i, k:] - factor * A[k, k:]
             b[i] = b[i] - factor * b[k]
 
+        # Registrar iteración para DataFrame
+        nuevaFila = {"Paso": f"Eliminación fila {k+1}"}
+        for fila in range(n):
+            for col in range(n):
+                nuevaFila[f"A[{fila+1},{col+1}]"] = A[fila, col]
+            nuevaFila[f"b[{fila+1}]"] = b[fila]
+        listaIteraciones.append(nuevaFila)
+
+    dfGauss = pd.DataFrame(listaIteraciones)
+
     #Convertir b a columna
     bCol = np.transpose([b])
     
@@ -35,7 +48,7 @@ def metodoGauss(A, b):
         suma = np.dot(A[i, i+1:], x[i+1:])
         x[i] = (b[i] - suma) / A[i, i]
 
-    return x, A, bCol
+    return x, A, bCol, dfGauss
 
 def mostrarResultado(x, A, bCol):
     print("\n*****RESULTADOS*****")
@@ -58,4 +71,6 @@ def mainGauss():
     
     # Mostrar resultados
     mostrarResultado(x, ATrian, bNuevo)
+    # Crear DataFrame para mostrar la matriz triangular
+    dfGauss = pd.DataFrame(ATrian)
 
