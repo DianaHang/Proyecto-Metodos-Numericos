@@ -15,6 +15,7 @@ from tkinter import messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from Methods.FalsaPosicion import metodoFalsaPosicion, f1, f2, f3
+from GraphicInterface.tablas import mostrar_tabla
 
 def mostrar_grafica_tkinter(frame, df, titulo, columna_y):
     # Elimina cualquier gráfica previa
@@ -95,14 +96,13 @@ def ventanaFalsaPosicion():
             texto += f"Intervalo inicial: [{a}, {b}]\n"
             texto += f"Número de iteraciones: {n}\n\n"
 
-            texto += "Convergencia del Método de Falsa Posición:\n"
-            dfFP = dfFP.round(4)
-            texto += dfFP.to_string(index=False) + "\n\n"
-
             texto += f"Solución aproximada:\n x ≈ {raiz:.6f}\n"
             texto += f"f(x) ≈ {f(raiz):.6f}\n"
 
             messagebox.showinfo("Resultados", texto)
+
+            mostrar_tabla(dfFP, titulo= "Iteraciones Falsa Posición")
+
 
              # ---- Mostrar gráfica ----
             mostrar_grafica_tkinter(

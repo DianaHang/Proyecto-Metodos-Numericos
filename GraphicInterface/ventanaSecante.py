@@ -15,6 +15,7 @@ from tkinter import messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from Methods.Secante import metodoSecante, f1, f2, f3
+from GraphicInterface.tablas import mostrar_tabla
 
 def mostrar_grafica_tkinter(frame, df, titulo, columna_y):
     # Elimina una gráfica anterior
@@ -97,16 +98,12 @@ def ventanaSecante():
             texto += f"x₀ = {x0}\n"
             texto += f"x₁ = {x1}\n"
             texto += f"Iteraciones: {n}\n\n"
-
-            texto += "Convergencia del Método de la Secante:\n"
-            dfSec = dfSec.round(4)
-            texto += dfSec.to_string(index=False)
-            texto += "\n\n"
-
             texto += f"Solución aproximada:\n x ≈ {raiz:.6f}\n"
             texto += f"f(x) ≈ {f(raiz):.6f}\n"
 
             messagebox.showinfo("Resultados", texto)
+
+            mostrar_tabla(dfSec, titulo= "Iteraciones Secante")
 
             # ---- Mostrar gráfica ----
             mostrar_grafica_tkinter(

@@ -15,6 +15,7 @@ from tkinter import messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from Methods.Newton import metodoNewton, f1, df1, f2, df2, f3, df3
+from GraphicInterface.tablas import mostrar_tabla
 
 def mostrar_grafica_tkinter(frame, df, titulo, columna_y):
     # Borrar una gráfica previa dentro del frame
@@ -90,15 +91,12 @@ def ventanaNewton():
             texto += f"Función seleccionada:\n{opcion_var.get()}\n\n"
             texto += f"Valor inicial x₀ = {x0}\n"
             texto += f"Número de iteraciones: {n}\n\n"
-
-            texto += "Convergencia del Método de Newton:\n"
-            dfNewton = dfNewton.round(4)
-            texto += dfNewton.to_string(index=False) + "\n\n"
-
             texto += f"Solución aproximada:\n x ≈ {raiz:.6f}\n"
 
             # Mostrar resultados
             messagebox.showinfo("Resultados", texto)
+
+            mostrar_tabla(dfNewton, titulo= "Iteraciones Newton")
 
             # ---- Mostrar gráfica ----
             mostrar_grafica_tkinter(

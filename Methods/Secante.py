@@ -41,6 +41,7 @@ def metodoSecante(f, x0, x1, n):
             raise ZeroDivisionError(
                 f"División entre cero en la iteración {i}. No se puede continuar."
             )
+            
 
          # Fórmula de la secante
         xn = x1 - fx1 * (x1 - x0) / (fx1 - fx0)
