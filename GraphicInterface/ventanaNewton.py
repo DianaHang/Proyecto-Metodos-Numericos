@@ -96,8 +96,6 @@ def ventanaNewton():
             # Mostrar resultados
             messagebox.showinfo("Resultados", texto)
 
-            mostrar_tabla(dfNewton, titulo= "Iteraciones Newton")
-
             # ---- Mostrar gráfica ----
             mostrar_grafica_tkinter(
                 frame_grafica,
@@ -105,6 +103,8 @@ def ventanaNewton():
                 "Convergencia del Método de Newton",
                 "xn"
             )
+
+            mostrar_tabla(dfNewton, titulo= "Iteraciones Newton")
 
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")

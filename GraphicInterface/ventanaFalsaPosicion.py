@@ -101,9 +101,6 @@ def ventanaFalsaPosicion():
 
             messagebox.showinfo("Resultados", texto)
 
-            mostrar_tabla(dfFP, titulo= "Iteraciones Falsa Posición")
-
-
              # ---- Mostrar gráfica ----
             mostrar_grafica_tkinter(
                 frame_grafica,
@@ -111,6 +108,10 @@ def ventanaFalsaPosicion():
                 "Convergencia del Método de Falsa Posición",
                 "c"
             )
+
+            mostrar_tabla(dfFP, titulo= "Iteraciones Falsa Posición")
+
+
 
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")

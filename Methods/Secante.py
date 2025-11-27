@@ -30,30 +30,30 @@ def leerInput():
 
 #Método de la Secante
 def metodoSecante(f, x0, x1, n):
-    datos = []
+    datos = {
+        "n": [],
+        "x0": [],
+        "x1": [],
+        "xn": [],
+        "f(xn)": []
+    }
 
-    for i in range(1, n+1):
-
+    for i in range(1, n + 1):
         fx0 = f(x0)
         fx1 = f(x1)
 
         if fx1 - fx0 == 0:
-            raise ZeroDivisionError(
-                f"División entre cero en la iteración {i}. No se puede continuar."
-            )
-            
+            break  # Evita división entre 0
 
-         # Fórmula de la secante
         xn = x1 - fx1 * (x1 - x0) / (fx1 - fx0)
 
-        # Evaluar f(xn)
-        fxn = f(xn)
+        datos["n"].append(i)
+        datos["x0"].append(x0)
+        datos["x1"].append(x1)
+        datos["xn"].append(xn)
+        datos["f(xn)"].append(f(xn))
 
-        # Guardar datos para DataFrame
-        datos.append([i, xn, fxn])
-
-        # Actualizar puntos
         x0, x1 = x1, xn
 
-    df = pd.DataFrame(datos, columns=["n", "xn", "f(xn)"])
+    df = pd.DataFrame(datos)
     return df, xn

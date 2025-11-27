@@ -92,5 +92,4 @@ def mostrar_tabla(df, titulo="Tabla de resultados", decimals: int = 5, format_co
     tabla.tag_configure("evenrow", background="#ffffff")  # Gris claro
     tabla.tag_configure("oddrow", background="#448DD6")   
 
-    win.mainloop()
 

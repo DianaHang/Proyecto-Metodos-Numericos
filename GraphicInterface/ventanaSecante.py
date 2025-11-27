@@ -103,8 +103,6 @@ def ventanaSecante():
 
             messagebox.showinfo("Resultados", texto)
 
-            mostrar_tabla(dfSec, titulo= "Iteraciones Secante")
-
             # ---- Mostrar gráfica ----
             mostrar_grafica_tkinter(
                 frame_grafica,
@@ -112,6 +110,8 @@ def ventanaSecante():
                 "Convergencia del Método de la Secante",
                 "xn"
             )
+
+            mostrar_tabla(dfSec, titulo= "Iteraciones Secante")
 
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")
