@@ -127,8 +127,9 @@ def ventanaGaussSeidel():
                 ADom = A
                 bDom = b
                 messagebox.showwarning("Advertencia",
-                                       "La matriz no es diagonal dominante y no pudo reacomodarse.\n"
-                                       "El método podría no converger.")
+                                       "La matriz no es estrictamente diagonal dominante y no pudo reacomodarse.\n"
+                                       "El método NO converge.")
+                return
 
             #Mostrar advertencia si no es diagonal dominante
             else:
@@ -139,24 +140,12 @@ def ventanaGaussSeidel():
             solucion, dfGaussSeidel = gaussSeidel(ADom, bDom, numIter)
 
             #Mostrar resultados
-            texto = "RESULTADOS DEL MÉTODO DE GAUSS-SEIDEL\n\n"
+            # Mostrar solución en mensaje aparte
+            messagebox.showinfo("Solución", "\n".join([f"x{i+1} = {val:.6f}" for i, val in enumerate(solucion)]))
 
-            texto += "Matriz diagonal dominante utilizada:\n"
-            texto += str(ADom) + "\n\n"
-
-            texto += f"Convergencia del método para {numIter-1} iteraciones:\n"
-            texto += dfGaussSeidel.to_string(index=False) + "\n\n"
-
-            texto += "Solución aproximada:\n"
-            for i, val in enumerate(solucion):
-                texto += f"x{i+1} = {val:.6f}\n"
-
-            # Mostrar resultados
             # Mostrar DataFrame en tabla scrollable
             mostrar_tabla(dfGaussSeidel, titulo="Iteraciones Gauss-Seidel")
 
-            # Mostrar solución en mensaje aparte
-            messagebox.showinfo("Solución", "\n".join([f"x{i+1} = {val:.6f}" for i, val in enumerate(solucion)]))
 
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")

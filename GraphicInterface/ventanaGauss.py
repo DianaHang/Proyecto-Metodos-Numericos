@@ -14,7 +14,6 @@ import tkinter as tk
 from tkinter import messagebox
 from Methods.Gauss import metodoGauss
 import numpy as np
-from GraphicInterface.tablas import mostrar_tabla
 
 
 def ventanaGauss():
@@ -118,18 +117,13 @@ def ventanaGauss():
             for i, val in enumerate(x):
                 texto += f"x{i+1} = {val:.6f}\n"
 
-            '''
             texto += "\nMatriz triangular superior A:\n"
             texto += str(Atriangular)
 
             texto += "\n\nVector resultante b:\n"
             texto += str(bCol)
-            '''
 
             messagebox.showinfo("Resultados", texto)
-
-            # Mostrar tablas de Atriangular y bCol
-            mostrar_tabla(dfGauss, titulo = "Matriz Triangular Superior A")
 
         except Exception as e:
             messagebox.showerror("Error", f"Hubo un problema:\n{e}")

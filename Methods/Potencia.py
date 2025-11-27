@@ -5,6 +5,7 @@
 """
 
 import numpy as np
+import pandas as pd
 
 #Método de la Potencia
 def metodoPotencia(A, x0, numIter):
@@ -37,7 +38,18 @@ def metodoPotencia(A, x0, numIter):
         x_norm = y / -y[0]
 
         # guardar el valor propio aproximado (c) y vector asociado (normalizado)
-        historial.append((c, x_norm.copy()))
+        # guardar cada componente del vector como una columna
+        # Fila: número de iteración, c, componentes del vector
+        c = -c
+
+        fila = [k] + [c] + list(x_norm)
+        historial.append(fila)
+
+        # Crear nombres de columna dinámicamente
+        cols = ["n", "c"] + [f"x{i+1}" for i in range(len(x_norm))]
+
+        df = pd.DataFrame(historial, columns=cols)
+
 
     # Valor propio dominante y vector asociado
-    return c, x_norm, historial
+    return c, x_norm, df

@@ -121,18 +121,10 @@ def ventanaPotencia():
                 return
 
             # Ejecutar método de la Potencia
-            c, x, historial = metodoPotencia(A, x0, numIter)
+            c, x, df = metodoPotencia(A, x0, numIter)
 
             # Mostrar resultados
-            texto = "RESULTADOS DEL MÉTODO DE LA POTENCIA\n\n"
-
-            texto += "Iteraciones:\n"
-            for k, (ck, xv) in enumerate(historial):
-                texto += f"Iteración {k}:\n"
-                texto += f"  c = {ck:.4f}\n"
-                texto += f"  x = {xv}\n\n"
-
-            texto += "\nValor propio dominante aproximado:\n"
+            texto = "\nValor propio dominante aproximado:\n"
             texto += f"λ ≈ {-c:.3f}\n\n"
 
             texto += "Vector propio asociado:\n"
@@ -140,6 +132,9 @@ def ventanaPotencia():
                 texto += f"x{i+1} = {val:.4f}\n"
 
             messagebox.showinfo("Resultados", texto)
+
+            # Mostrar DataFrame en tabla scrollable
+            mostrar_tabla(df, titulo="Iteraciones Método de la Potencia")
 
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")

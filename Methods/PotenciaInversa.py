@@ -7,6 +7,7 @@
             donde Ainv es la inversa de A
 """
 import numpy as np
+import pandas as pd
 
 #Método de la Potencia Inversa
 def metodoPotenciaInversa(A, x0, numIter):
@@ -50,6 +51,12 @@ def metodoPotenciaInversa(A, x0, numIter):
         # λ ≈ (xᵀ A x) / (xᵀ x)   → Cociente de Rayleigh
         lambda_aprox = (x.T @ A @ x) / (x.T @ x)
 
-        historial.append((lambda_aprox, x.copy()))
+        fila = [k] + [lambda_aprox] +list(x)
+        historial.append(fila)
 
-    return lambda_aprox, x, historial
+        # Crear nombres de columna dinámicamente
+        cols = ["n", "c"] + [f"x{i+1}" for i in range(len(x))]
+
+        df = pd.DataFrame(historial, columns=cols)
+
+    return lambda_aprox, x, df

@@ -16,6 +16,7 @@ from tkinter import messagebox
 import numpy as np
 
 from Methods.PotenciaInversa import metodoPotenciaInversa
+from GraphicInterface.tablas import mostrar_tabla
 
 def ventanaPotenciaInversa():
     sub = tk.Toplevel()
@@ -117,25 +118,18 @@ def ventanaPotenciaInversa():
                 return
 
             # Ejecutar método d ela Potencia Inversa
-            lambda_min, x, historial = metodoPotenciaInversa(A, x0, numIter)
+            lambda_min, x, df = metodoPotenciaInversa(A, x0, numIter)
 
             #Mostrar resultados
-            texto = "RESULTADOS DEL MÉTODO DE LA POTENCIA INVERSA\n\n"
-
-            texto += "Iteraciones:\n"
-            for k, (lam, xv) in enumerate(historial):
-                texto += f"Iteración {k}:\n"
-                texto += f"  λₖ = {lam:.4f}\n"
-                texto += f"  xₖ = {xv}\n\n"
-
-            texto += "\nValor propio mínimo aproximado:\n"
+            texto = "\nValor propio mínimo aproximado\n"
             texto += f"λ_min ≈ {lambda_min:.4f}\n\n"
-
             texto += "Vector propio asociado:\n"
             for i, val in enumerate(x):
                 texto += f"x{i+1} = {val:.4f}\n"
 
             messagebox.showinfo("Resultados", texto)
+
+            mostrar_tabla(df, titulo= "Iteraciones Método de la Potencia Inversa")
 
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")

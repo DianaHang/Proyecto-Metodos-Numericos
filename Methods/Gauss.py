@@ -48,7 +48,7 @@ def metodoGauss(A, b):
         suma = np.dot(A[i, i+1:], x[i+1:])
         x[i] = (b[i] - suma) / A[i, i]
 
-    return x, A, bCol, dfGauss
+    return x, A, bCol
 
 def mostrarResultado(x, A, bCol):
     print("\n*****RESULTADOS*****")
@@ -71,6 +71,4 @@ def mainGauss():
     
     # Mostrar resultados
     mostrarResultado(x, ATrian, bNuevo)
-    # Crear DataFrame para mostrar la matriz triangular
-    dfGauss = pd.DataFrame(ATrian)
 

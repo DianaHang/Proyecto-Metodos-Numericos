@@ -126,6 +126,7 @@ def ventanaJacobi():
                 messagebox.showwarning("Advertencia",
                                        "La matriz no es diagonal dominante y no pudo reacomodarse.\n"
                                        "El método podría no converger.")
+                return
 
             #Mostrar advertencia si no es diagonal dominante
             else:
@@ -136,19 +137,11 @@ def ventanaJacobi():
             solucion, dfJacobi = jacobi(ADom, bDom, numIter)
 
             #Mostrar resultados
-            texto = "RESULTADOS DEL MÉTODO DE JACOBI\n\n"
-
-            texto += "Matriz diagonal dominante utilizada:\n"
-            texto += str(ADom) + "\n\n"
-
             messagebox.showinfo("Solución",
                 "\n".join([f"x{i+1} = {val:.6f}" for i, val in enumerate(solucion)])
-            )
+                )
 
             mostrar_tabla(dfJacobi, titulo="Iteraciones Jacobi")
-
-            # Mostrar resultados
-            messagebox.showinfo("Resultados", texto)
 
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un problema:\n{e}")
